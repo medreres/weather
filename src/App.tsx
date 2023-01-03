@@ -3,16 +3,23 @@ import {
   faChartPie,
   faCoffee,
   faDownLeftAndUpRightToCenter,
+  faGlobe,
   faGolfBall,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSProperties, useEffect, useState } from "react";
-import { Button, Card, Stack } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Container,
+  Dropdown,
+  Navbar,
+  Stack,
+} from "react-bootstrap";
 import { getDescription, getIcon } from "../weatherCode";
 import { drawChart24Hour } from "./shared/util/chart";
 import { getDay, normalizeTemp } from "./shared/util/formatting";
 import { Weather } from "./shared/util/interfaces/weather";
-
 
 function App() {
   const [weather, setWeather] = useState<Weather | null>();
@@ -31,10 +38,25 @@ function App() {
   // console.log(weather);
 
   if (weather) {
-    drawChart24Hour(weather.hourly)
+    drawChart24Hour(weather.hourly);
   }
   return (
     <>
+      <Navbar bg="dark" variant="dark">
+        <Container fluid>
+          <Navbar.Brand>Weather</Navbar.Brand>
+          <Dropdown align="end">
+            <Dropdown.Toggle>
+            <FontAwesomeIcon icon={faGlobe} /> Language
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Header>Interface Language</Dropdown.Header>
+              <Dropdown.Divider />
+              <Dropdown.Item>Ukrainian</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Container>
+      </Navbar>
       {weather && (
         <div className="w-100 text-center">
           <h1>Kulchytsi</h1>
@@ -63,8 +85,6 @@ function App() {
       >
         {weather &&
           Array.from({ length: 7 }, (_, i) => i).map((i) => {
-            if (i == 0) return;
-
             return (
               <Card
                 key={i}

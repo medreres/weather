@@ -3,7 +3,7 @@ export function drawChart24Hour(hourly) {
         ["Year", "Temperature"],
         // here goes all the temperature in format [hour, value]
     ];
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 25; i += 6) {
         const pair = [
             hourly.time[i].slice(hourly.time[i].length - 5),
             // hourly.time[i],
@@ -28,9 +28,10 @@ function drawChart(arrayToTable) {
             title: "Temperature Chart",
             curveType: "function",
             legend: "none",
-            hAxis: {
-                textPosition: 'none'
-            },
+            chartArea: {
+                // width: '100%'
+            }
+
         };
 
         var chart = new google.visualization.LineChart(
