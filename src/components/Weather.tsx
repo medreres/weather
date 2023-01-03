@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import { Card } from "react-bootstrap";
 import { getIcon, getDescription } from "../../weatherCode";
 import useLanguage from "../shared/hooks/useLanguage";
@@ -11,6 +11,8 @@ type WeatherProps = {
   temp_min: number;
   temp_max: number;
   lang: string;
+  active: boolean;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export default function Weather({
@@ -19,10 +21,14 @@ export default function Weather({
   temp_min,
   temp_max,
   lang,
+  active,
+  onClick,
 }: WeatherProps) {
   const translate = useLanguage();
   return (
     <Card
+      onClick={onClick}
+      className={`${active ? "active" : ""}`}
       style={{
         width: "20vmin",
         margin: "1vmin",

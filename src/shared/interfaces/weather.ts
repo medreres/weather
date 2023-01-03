@@ -1,4 +1,4 @@
-export type Daily = {
+export type daily = {
   temperature_2m_min: number[];
   temperature_2m_max: number[];
   time: string[];
@@ -11,7 +11,7 @@ export type hourly = {
 };
 
 export type weather = {
-  daily: Daily;
+  daily: daily;
   current_weather: currentWeather;
   hourly: hourly;
 };
