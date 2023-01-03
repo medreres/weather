@@ -1,0 +1,15 @@
+.glowing {
+    animation: 2.1s infinite glow;
+}
+
+@keyframes glow {
+    0% {
+        opacity: .7
+    }
+    50% {
+        opacity: .2;
+    }
+    to {
+        opacity: .7;
+    }
+}

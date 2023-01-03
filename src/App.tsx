@@ -1,7 +1,7 @@
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect } from "react";
-import { Container, Dropdown, Navbar } from "react-bootstrap";
+import { Container, Dropdown } from "react-bootstrap";
 import { drawChart24Hour } from "./shared/util/chart";
 import { LANGUAGES, TRANSLATION } from "./shared/translation";
 import { languageCtx } from "./shared/context/language-context";
@@ -9,54 +9,33 @@ import useLanguage from "./shared/hooks/useLanguage";
 import Weather from "./components/Weather";
 import useWeather from "./shared/hooks/useWeather";
 import WeatherToday from "./components/WeatherToday";
+import Navbar from "./components/Navbar";
+import WeatherPlaceholder from "./components/WeatherPlaceholder";
+import WeatherTodayPlaceholder from "./components/WeatherTodayPlaceholder";
 
 function App() {
   const { weather, isLoading } = useWeather();
 
-  const { lang, setLanguage } = useContext(languageCtx);
+  const { lang } = useContext(languageCtx);
 
-  const translate = useLanguage();
-
+  // draw chart when weather is loaded
   useEffect(() => {
     if (isLoading) return;
 
     drawChart24Hour(weather!.hourly);
   }, [weather]);
+
   return (
     <>
-      <Navbar bg="dark" variant="dark">
-        <Container fluid>
-          <Navbar.Brand>Weather</Navbar.Brand>
-          <Dropdown align="end">
-            <Dropdown.Toggle>
-              <FontAwesomeIcon icon={faGlobe} />{" "}
-              {translate(TRANSLATION.LANGUAGE)}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Header>
-                {translate(TRANSLATION.INTERFACE_LANGUAGE)}
-              </Dropdown.Header>
-              <Dropdown.Divider />
-              {Object.keys(LANGUAGES).map((option) => (
-                <Dropdown.Item
-                  disabled={option === lang}
-                  key={option}
-                  onClick={() => {
-                    setLanguage(option);
-                  }}
-                >
-                  {LANGUAGES[option]}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </Container>
-      </Navbar>
+      <Navbar />
       {weather && (
         <WeatherToday
           temperature={weather.current_weather.temperature}
           weathercode={weather.current_weather.weathercode}
         />
+      )}
+      {isLoading && (
+        <WeatherTodayPlaceholder />
       )}
       <div
         style={{
@@ -77,6 +56,10 @@ function App() {
               temp_max={weather.daily.temperature_2m_max[i]}
               lang={lang}
             />
+          ))}
+        {isLoading &&
+          Array.from({ length: 7 }, (_, i) => i).map((i) => (
+            <WeatherPlaceholder />
           ))}
       </div>
     </>
