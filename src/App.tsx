@@ -7,7 +7,7 @@ import {
   faGolfBall,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useContext, useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -19,7 +19,9 @@ import {
 import { getDescription, getIcon } from "../weatherCode";
 import { drawChart24Hour } from "./shared/util/chart";
 import { getDay, normalizeTemp } from "./shared/util/formatting";
-import { Weather } from "./shared/util/interfaces/weather";
+import { Weather } from "./shared/interfaces/weather";
+import { LANGUAGES } from "./shared/language";
+import { languageCtx } from "./shared/context/language-context";
 
 function App() {
   const [weather, setWeather] = useState<Weather | null>();
@@ -35,7 +37,11 @@ function App() {
       });
   }, []);
 
+  const { lang, setLanguage } = useContext(languageCtx);
+
   // console.log(weather);
+
+  // console.log(lang)
 
   if (weather) {
     drawChart24Hour(weather.hourly);
@@ -47,12 +53,22 @@ function App() {
           <Navbar.Brand>Weather</Navbar.Brand>
           <Dropdown align="end">
             <Dropdown.Toggle>
-            <FontAwesomeIcon icon={faGlobe} /> Language
+              <FontAwesomeIcon icon={faGlobe} /> Language
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Header>Interface Language</Dropdown.Header>
               <Dropdown.Divider />
-              <Dropdown.Item>Ukrainian</Dropdown.Item>
+              {Object.keys(LANGUAGES).map((option) => (
+                <Dropdown.Item
+                  disabled={option === lang}
+                  key={option}
+                  onClick={() => {
+                    setLanguage(option);
+                  }}
+                >
+                  {LANGUAGES[option]}
+                </Dropdown.Item>
+              ))}
             </Dropdown.Menu>
           </Dropdown>
         </Container>
