@@ -5,18 +5,18 @@ export type Daily = {
   weathercode: number[];
 };
 
-export type Hourly = {
+export type hourly = {
   temperature_2m: number[];
   time: string[];
 };
 
-export type Weather = {
+export type weather = {
   daily: Daily;
-  current_weather: CurrentWeather;
-  hourly: Hourly;
+  current_weather: currentWeather;
+  hourly: hourly;
 };
 
-export type CurrentWeather = {
+export type currentWeather = {
   temperature: number;
   time: string;
   weathercode: number;
