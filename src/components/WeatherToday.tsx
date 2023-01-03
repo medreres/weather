@@ -7,16 +7,18 @@ import { normalizeTemp } from "../shared/util/formatting";
 type WeatherTodayProps = {
   weathercode: number;
   temperature: number;
+  cityName: string;
 };
 
 export default function WeatherToday({
   weathercode,
   temperature,
+  cityName
 }: WeatherTodayProps) {
   const translate = useLanguage();
   return (
     <div className="w-100 text-center">
-      <h1>Kulchytsi</h1>
+      <h1>{cityName}</h1>
       <h2
         style={{
           fontSize: "13vmin",

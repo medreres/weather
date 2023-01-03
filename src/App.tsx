@@ -13,6 +13,9 @@ import Navbar from "./components/Navbar";
 import WeatherPlaceholder from "./components/WeatherPlaceholder";
 import WeatherTodayPlaceholder from "./components/WeatherTodayPlaceholder";
 import { hourly } from "./shared/interfaces/weather";
+import GooglePlacesAutocomplete, {
+  geocodeByPlaceId,
+} from "react-google-places-autocomplete";
 
 type chosenDay = {
   id: number;
@@ -25,7 +28,13 @@ function App() {
 
   const [chosenDay, setChosenDay] = useState<chosenDay>();
 
-  const { lang } = useContext(languageCtx);
+  const { lang, latitude, longitude, setLatitude, setLongtitude } =
+    useContext(languageCtx);
+
+  console.log(lang);
+
+  const [city, setCity] = useState(null);
+  const [cityName, setCityName] = useState("");
 
   useEffect(() => {
     if (!chosenDay) return;
@@ -48,11 +57,43 @@ function App() {
       });
   }, [weather]);
 
+  useEffect(() => {
+    if (!city) return;
+    geocodeByPlaceId(city.value.place_id)
+      .then((results) => {
+        setCityName(
+          results[0].formatted_address.slice(
+            0,
+            results[0].formatted_address.indexOf(",")
+          )
+        );
+        setLatitude(results[0].geometry.location.lat());
+        setLongtitude(results[0].geometry.location.lng());
+      })
+      .catch((error) => console.error(error));
+  }, [city]);
+
+  const apiOptions = {
+    language: lang,
+  };
+
   return (
     <>
       <Navbar />
+      <GooglePlacesAutocomplete
+        selectProps={{
+          city,
+          onChange: setCity,
+        }}
+        apiKey="AIzaSyCCbZQu78ae-hjPy0CgYcOer7stF_rgMYo"
+        apiOptions={apiOptions}
+        autocompletionRequest={{
+          types: ["(cities)"],
+        }}
+      />
       {chosenDay && (
         <WeatherToday
+          cityName={cityName}
           temperature={chosenDay?.temperature}
           weathercode={chosenDay?.weathercode}
         />
