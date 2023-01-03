@@ -1,3 +1,4 @@
+import { TRANSLATION } from "./src/shared/translation";
 import {
   faCloudBolt,
   faCloudShowersHeavy,
@@ -34,60 +35,60 @@ export function getIcon(code: number): IconDefinition {
 export function getDescription(code: number): string {
   switch (code) {
     case 0:
-      return "Clear sky";
+      return TRANSLATION.CLEAR_SKY;
 
     case 1:
     case 2:
     case 3:
-      return "Mainly clear, partly cloudy, and overcast";
+      return TRANSLATION.MAINLY_CLEAR;
 
     case 45:
     case 48:
-      return "Fog and depositing rime fog";
+      return TRANSLATION.FOG;
 
     case 51:
     case 53:
     case 55:
-      return "Drizzle: Light, moderate, and dense intensity";
+      return TRANSLATION.DRIZZLE;
 
     case 56:
     case 57:
-      return "Freezing Drizzle: Light and dense intensity";
+      return TRANSLATION.FREEZING_DRIZZLE;
 
     case 61:
     case 63:
     case 65:
-      return "Rain: Slight, moderate and heavy intensity";
+      return TRANSLATION.RAIN_SLIGHT;
 
     case 66:
     case 67:
-      return "Freezing Rain: Light and heavy intensity";
+      return TRANSLATION.RAIN_FREEZING;
 
     case 71:
     case 73:
     case 75:
-      return "Snow fall: Slight, moderate, and heavy intensity";
+      return TRANSLATION.SNOW_FALL;
 
     case 77:
-      return "Snow grains";
+      return TRANSLATION.SNOW_GRAINS;
 
     case 80:
     case 81:
     case 82:
-      return "Rain showers: Slight, moderate, and violent";
+      return TRANSLATION.RAIN_SHOWERS_SLIGHT;
 
     case 85:
     case 86:
-      return "Snow showers slight and heavy";
+      return TRANSLATION.SNOW_SHOWERS;
 
     case 95:
-      return "Thunderstorm: Slight or moderate";
+      return TRANSLATION.THUNDERSTORM;
 
     case 96:
     case 99:
-      return "Thunderstorm with slight and heavy hail";
+      return TRANSLATION.THUNDERSTORM_HAIL;
 
     default:
-      return "not defined";
+      return "";
   }
 }

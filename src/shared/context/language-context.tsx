@@ -1,5 +1,6 @@
 import React, { Children, ReactNode, useContext, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { LOCAL_STORAGE } from "../translation";
 
 export const languageCtx = React.createContext({
   lang: "uk",
@@ -15,7 +16,7 @@ type languageContextProviderProps = {
 export function LanguageContextProvider({
   children,
 }: languageContextProviderProps) {
-  const [lang, setLang] = useLocalStorage("WEATHER_APP_LANGUAGE", "en");
+  const [lang, setLang] = useLocalStorage(LOCAL_STORAGE.WEATHER_APP_LANGUAGE, "en");
   const value = {
     lang,
     setLanguage: (lang: string) => {

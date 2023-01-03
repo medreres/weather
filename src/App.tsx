@@ -20,8 +20,9 @@ import { getDescription, getIcon } from "../weatherCode";
 import { drawChart24Hour } from "./shared/util/chart";
 import { getDay, normalizeTemp } from "./shared/util/formatting";
 import { Weather } from "./shared/interfaces/weather";
-import { LANGUAGES } from "./shared/language";
+import { LANGUAGES, TRANSLATION } from "./shared/translation";
 import { languageCtx } from "./shared/context/language-context";
+import useLanguage from "./shared/hooks/useLanguage";
 
 function App() {
   const [weather, setWeather] = useState<Weather | null>();
@@ -39,9 +40,7 @@ function App() {
 
   const { lang, setLanguage } = useContext(languageCtx);
 
-  // console.log(weather);
-
-  // console.log(lang)
+  const translate = useLanguage();
 
   if (weather) {
     drawChart24Hour(weather.hourly);
@@ -53,10 +52,13 @@ function App() {
           <Navbar.Brand>Weather</Navbar.Brand>
           <Dropdown align="end">
             <Dropdown.Toggle>
-              <FontAwesomeIcon icon={faGlobe} /> Language
+              <FontAwesomeIcon icon={faGlobe} />{" "}
+              {translate(TRANSLATION.LANGUAGE)}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Header>Interface Language</Dropdown.Header>
+              <Dropdown.Header>
+                {translate(TRANSLATION.INTERFACE_LANGUAGE)}
+              </Dropdown.Header>
               <Dropdown.Divider />
               {Object.keys(LANGUAGES).map((option) => (
                 <Dropdown.Item
@@ -87,7 +89,9 @@ function App() {
             />{" "}
             {normalizeTemp(weather.current_weather.temperature)}˚C
           </h2>
-          <h5>{getDescription(weather.current_weather.weathercode)}</h5>
+          <h5>
+            {translate(getDescription(weather.current_weather.weathercode))}
+          </h5>
         </div>
       )}
       <div
@@ -119,7 +123,7 @@ function App() {
                       overflow: "hidden",
                     }}
                   >
-                    {getDay(weather.daily.time[i])},{" "}
+                    {getDay(weather.daily.time[i], lang)},{" "}
                     {new Date(weather.daily.time[i]).getDate()}
                   </Card.Title>
                   <FontAwesomeIcon
@@ -151,7 +155,7 @@ function App() {
                         display: "inline-block",
                       }}
                     >
-                      {getDescription(weather.daily.weathercode[i])}
+                      {translate(getDescription(weather.daily.weathercode[i]))}
                     </span>
                   </Card.Text>
                 </Card.Body>

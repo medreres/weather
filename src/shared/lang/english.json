@@ -1,0 +1,20 @@
+{
+    "lang": "Language",
+    "INTERFACE_LANGUAGE": "Inteface language",
+
+    "MAINLY_CLEAR ": "Mainly clear,partly cloudy,and overcast ",
+    "CLEAR_SKY": "Clear sky",
+    "MAINLY_CLEAR": "Mainly clear,partly cloudy,and overcast ",
+    "FOG": "Fog and depositing rime fog ",
+    "DRIZZLE": "Drizzle: Light,moderate,and dense intensity ",
+    "FREEZING_DRIZZLE ": "Freezing Drizzle: Light and dense intensity",
+    "RAIN_SLIGHT": "Rain: Slight, moderate and heavy intensity",
+    "RAIN_FREEZING": "Freezing Rain: Light and heavy intensity ",
+    "RAIN_SHOWERS_SLIGHT": "Rain showers: Slight, moderate, and violent",
+    "THUNDERSTORM": "Thunderstorm: Slight or moderate",
+    "THUNDERSTORM_HAIL": "Thunderstorm with slight and heavy hail",
+    "SNOW_FALL": "Snow fall: Slight, moderate, and heavy intensity",
+    "SNOW_GRAINS ": "Snow grains ",
+    "SNOW_SHOWERS ": "Snow showers slight and heavy "
+
+}
