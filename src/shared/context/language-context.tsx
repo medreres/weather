@@ -16,8 +16,8 @@ export const languageCtx = React.createContext({
     value: {
       description: "",
       place_id: "",
-      lng: 0,
-      lat: 0,
+      lng: 1,
+      lat: 2,
     },
   },
   setCity: (city: city) => {},
@@ -36,13 +36,14 @@ export function LanguageContextProvider({
     LOCAL_STORAGE.WEATHER_APP_LANGUAGE,
     "en"
   );
+
+
   const [city, setCity] = useLocalStorage<city>(
     LOCAL_STORAGE.WEATHER_APP_CITY,
     // by default chose lviv as default location
     {
       label: "Lviv",
       value: {
-        description: "Lviv, Lviv Oblast, Ukraine",
         place_id: "ChIJV5oQCXzdOkcR4ngjARfFI0I",
         lat: 49.84,
         lng: 24.02,
@@ -56,19 +57,23 @@ export function LanguageContextProvider({
     },
     city,
     setCity: async (cityObj: city) => {
-      geocodeByPlaceId(city.value.place_id).then((res) => {
-        const city = res[0];
-        const lat = city.geometry.location.lat();
-        const lng = city.geometry.location.lng();
-        setCity({
-          ...cityObj,
-          value: {
-            ...cityObj.value,
-            lat,
-            lng,
-          },
+      // if searched thrugh search bar, find the latitude and longitude
+      if (!cityObj.value.lng && !cityObj.value.lng)
+        geocodeByPlaceId(city.value.place_id).then((res) => {
+          const city = res[0];
+          const lat = city.geometry.location.lat();
+          const lng = city.geometry.location.lng();
+          setCity({
+            ...cityObj,
+            value: {
+              ...cityObj.value,
+              lat,
+              lng,
+            },
+          });
         });
-      });
+      // if pos given through geo api from browser, then all is set
+      else setCity(cityObj);
     },
   };
 

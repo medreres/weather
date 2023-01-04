@@ -1,7 +1,14 @@
-import { faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { faGlobe, faLocation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
-import { Container, Dropdown } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Dropdown,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import { drawChart24Hour } from "./shared/util/chart";
 import { LANGUAGES, TRANSLATION } from "./shared/translation";
 import { languageCtx } from "./shared/context/language-context";
@@ -19,6 +26,7 @@ import GooglePlacesAutocomplete, {
   geocodeByPlaceId,
   getLatLng,
 } from "react-google-places-autocomplete";
+import Searchbar from "./components/Searchbar";
 
 type chosenDay = {
   id: number;
@@ -39,17 +47,6 @@ function App() {
     drawChart24Hour(weather!.hourly, chosenDay.id * 24);
   }, [chosenDay]);
 
-  // ask user for geo to find out where is he
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      const lat = pos.coords.latitude;
-      const lng = pos.coords.longitude;
-      geocodeByLatLng({ lat, lng })
-        .then((results) => console.log(results))
-        .catch((error) => console.error(error));
-    });
-  }, []);
-
   // draw chart when weather is loaded
   useEffect(() => {
     if (isLoading) return;
@@ -65,24 +62,10 @@ function App() {
       });
   }, [weather]);
 
-  const apiOptions = {
-    language: lang,
-  };
-
   return (
     <>
       <Navbar />
-      <GooglePlacesAutocomplete
-        selectProps={{
-          city,
-          onChange: setCity,
-        }}
-        apiKey="AIzaSyCCbZQu78ae-hjPy0CgYcOer7stF_rgMYo"
-        apiOptions={apiOptions}
-        autocompletionRequest={{
-          types: ["(cities)"],
-        }}
-      />
+      <Searchbar />
       {chosenDay && (
         <WeatherToday
           cityName={city.label}
