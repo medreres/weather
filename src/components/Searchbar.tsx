@@ -12,28 +12,38 @@ export default function Searchbar() {
   // ask user for geo to find out where is he
   function getLocation() {
     setIsLoading(true);
-    navigator.geolocation.getCurrentPosition((pos) => {
-      const lat = pos.coords.latitude;
-      const lng = pos.coords.longitude;
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
 
-      geocodeByLatLng({ lat, lng })
-        .then((results) => {
-          const result = results[0];
+        geocodeByLatLng({ lat, lng })
+          .then((results) => {
+            const result = results[0];
 
-          const city = {
-            label: result.formatted_address,
-            value: {
-              place_id: result.place_id,
-              lat,
-              lng,
-            },
-          };
+            const city = {
+              label: result.formatted_address,
+              value: {
+                place_id: result.place_id,
+                lat,
+                lng,
+              },
+            };
+            setCity(city);
+          })
+          .catch((error) => {
+            alert("Couldnt find your address");
+          });
 
-          setCity(city);
-          setIsLoading(false);
-        })
-        .catch((error) => alert("Couldnt find your address"));
-    });
+        setIsLoading(false);
+      },
+      (err) => {
+        setIsLoading(false);
+        alert(
+          "Couldnt find your address. Please check if all required permissions are granted."
+        );
+      }
+    );
   }
   const { city, setCity, lang } = useContext(languageCtx);
   return (
