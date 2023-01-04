@@ -21,3 +21,13 @@ export type currentWeather = {
   time: string;
   weathercode: number;
 };
+
+export type city = {
+  label: string;
+  value: {
+    description: string;
+    place_id: string
+    lat: number;
+    lng : number;
+  };
+};

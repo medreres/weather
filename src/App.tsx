@@ -14,7 +14,10 @@ import WeatherPlaceholder from "./components/WeatherPlaceholder";
 import WeatherTodayPlaceholder from "./components/WeatherTodayPlaceholder";
 import { hourly } from "./shared/interfaces/weather";
 import GooglePlacesAutocomplete, {
+  geocodeByAddress,
+  geocodeByLatLng,
   geocodeByPlaceId,
+  getLatLng,
 } from "react-google-places-autocomplete";
 
 type chosenDay = {
@@ -28,19 +31,24 @@ function App() {
 
   const [chosenDay, setChosenDay] = useState<chosenDay>();
 
-  const { lang, latitude, longitude, setLatitude, setLongtitude } =
-    useContext(languageCtx);
-
-  console.log(lang);
-
-  const [city, setCity] = useState(null);
-  const [cityName, setCityName] = useState("");
+  const { lang, city, setCity } = useContext(languageCtx);
 
   useEffect(() => {
     if (!chosenDay) return;
 
     drawChart24Hour(weather!.hourly, chosenDay.id * 24);
   }, [chosenDay]);
+
+  // ask user for geo to find out where is he
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      geocodeByLatLng({ lat, lng })
+        .then((results) => console.log(results))
+        .catch((error) => console.error(error));
+    });
+  }, []);
 
   // draw chart when weather is loaded
   useEffect(() => {
@@ -56,22 +64,6 @@ function App() {
         weathercode: weather!.daily.weathercode[id],
       });
   }, [weather]);
-
-  useEffect(() => {
-    if (!city) return;
-    geocodeByPlaceId(city.value.place_id)
-      .then((results) => {
-        setCityName(
-          results[0].formatted_address.slice(
-            0,
-            results[0].formatted_address.indexOf(",")
-          )
-        );
-        setLatitude(results[0].geometry.location.lat());
-        setLongtitude(results[0].geometry.location.lng());
-      })
-      .catch((error) => console.error(error));
-  }, [city]);
 
   const apiOptions = {
     language: lang,
@@ -93,7 +85,7 @@ function App() {
       />
       {chosenDay && (
         <WeatherToday
-          cityName={cityName}
+          cityName={city.label}
           temperature={chosenDay?.temperature}
           weathercode={chosenDay?.weathercode}
         />
