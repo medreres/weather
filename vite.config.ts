@@ -40,12 +40,8 @@ export default defineConfig({
         runtimeCaching: [
           getCache({
             pattern:
-              "https://api.open-meteo.com/v1/forecast?latitude=49.84&longitude=24.02&hourly=temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=Europe%2FMoscow",
+              /https:\/\/api\.open-meteo\.com\/v1\/forecast\?latitude=(.*)&longitude=(.*)&hourly=temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=(.*)/gm,
             name: "forecast",
-          }),
-          getCache({
-            pattern: "https://www.gstatic.com/charts/loader.js",
-            name: "charts",
           }),
         ],
       },

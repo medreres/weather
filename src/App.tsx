@@ -64,7 +64,7 @@ function App() {
   return (
     <>
       <Navbar />
-      {/* <Searchbar /> */}
+      <Searchbar />
       {chosenDay && (
         <WeatherToday
           cityName={city.label}
