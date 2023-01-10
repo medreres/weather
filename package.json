@@ -12,11 +12,13 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@types/google.visualization": "^0.0.68",
     "bootstrap": "^5.2.3",
     "dotenv": "^16.0.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
+    "react-google-charts": "^4.0.0",
     "react-google-places-autocomplete": "^3.4.0"
   },
   "devDependencies": {
@@ -24,6 +26,7 @@
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
     "typescript": "^4.6.4",
-    "vite": "^3.2.3"
+    "vite": "^3.2.3",
+    "vite-plugin-pwa": "^0.14.1"
   }
 }

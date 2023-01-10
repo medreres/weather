@@ -37,7 +37,6 @@ export function LanguageContextProvider({
     "en"
   );
 
-
   const [city, setCity] = useLocalStorage<city>(
     LOCAL_STORAGE.WEATHER_APP_CITY,
     // by default chose lviv as default location
@@ -77,5 +76,7 @@ export function LanguageContextProvider({
     },
   };
 
-  return <languageCtx.Provider value={value}>{children}</languageCtx.Provider>;
+  return (
+    <languageCtx.Provider value={value as any}>{children}</languageCtx.Provider>
+  );
 }

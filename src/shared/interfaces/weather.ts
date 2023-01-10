@@ -25,8 +25,8 @@ export type currentWeather = {
 export type city = {
   label: string;
   value: {
-    place_id: string
+    place_id: string;
     lat: number;
-    lng : number;
+    lng: number;
   };
 };

@@ -44,7 +44,7 @@ function App() {
   useEffect(() => {
     if (!chosenDay) return;
 
-    drawChart24Hour(weather!.hourly, chosenDay.id * 24);
+    // drawChart24Hour(weather!.hourly, chosenDay.id * 24);
   }, [chosenDay]);
 
   // draw chart when weather is loaded
@@ -65,7 +65,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <Searchbar />
+      {/* <Searchbar /> */}
       {chosenDay && (
         <WeatherToday
           cityName={city.label}

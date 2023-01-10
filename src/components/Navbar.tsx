@@ -9,12 +9,14 @@ import {
 import { languageCtx } from "../shared/context/language-context";
 import useLanguage from "../shared/hooks/useLanguage";
 import { TRANSLATION, LANGUAGES } from "../shared/translation";
-
 export default function Navbar() {
   const translate = useLanguage();
   const { lang, setLanguage } = useContext(languageCtx);
   return (
-    <NavbarBootstrap bg="dark" variant="dark">
+    <NavbarBootstrap
+      bg="dark"
+      variant="dark"
+    >
       <Container fluid>
         <NavbarBootstrap.Brand>Weather</NavbarBootstrap.Brand>
         <Dropdown align="end">
@@ -34,7 +36,7 @@ export default function Navbar() {
                   setLanguage(option);
                 }}
               >
-                {LANGUAGES[option]}
+                {(LANGUAGES as any)[option]}
               </Dropdown.Item>
             ))}
           </Dropdown.Menu>

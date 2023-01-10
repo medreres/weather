@@ -3,6 +3,8 @@ export const LANGUAGES = {
   uk: "Українська",
 };
 
+
+
 export const LOCAL_STORAGE = {
   WEATHER_APP_LANGUAGE: "WEATHER_APP_LANGUAGE",
   WEATHER_APP_LATITUDE: "WEATHER_APP_LATITUDE",
@@ -13,8 +15,7 @@ export const LOCAL_STORAGE = {
 export const TRANSLATION = {
   // interface
   LANGUAGE: "lang",
-  INTERFACE_LANGUAGE: "INTERFACE_LANGUAGE", 
-
+  INTERFACE_LANGUAGE: "INTERFACE_LANGUAGE",
 
   // weather
   CLEAR_SKY: "CLEAR_SKY",
