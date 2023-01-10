@@ -47,10 +47,6 @@ export default defineConfig({
             pattern: "https://www.gstatic.com/charts/loader.js",
             name: "charts",
           }),
-          // getCache({
-          //   pattern: /^https:\/\/my-library-cover-uploads.s3.amazonaws.com/,
-          //   name: "local-images2",
-          // }),
         ],
       },
       devOptions: {

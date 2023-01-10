@@ -1,6 +1,6 @@
 import { hourly } from "./../interfaces/weather";
 
-export function drawChart24Hour(hourly: hourly, startFrom: number = 0) {
+export function convertTemperatureToTable(hourly: hourly, startFrom: number = 0) {
   const arrayToTable: [[string | number, string | number]] = [
     ["Year", "Temperature"],
     // here goes all the temperature in format [hour, value]
@@ -14,31 +14,33 @@ export function drawChart24Hour(hourly: hourly, startFrom: number = 0) {
     arrayToTable.push(pair);
   }
 
-  drawChart(arrayToTable);
+  return arrayToTable;
+
+  // drawChart(arrayToTable);
 }
 
-function drawChart(arrayToTable: any) {
-  google.charts.load("current", {
-    packages: ["corechart"],
-  });
-  google.charts.setOnLoadCallback(drawChart);
+// function drawChart(arrayToTable: any) {
+//   google.charts.load("current", {
+//     packages: ["corechart"],
+//   });
+//   google.charts.setOnLoadCallback(drawChart);
 
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable(arrayToTable);
+//   function drawChart() {
+//     var data = google.visualization.arrayToDataTable(arrayToTable);
 
-    var options: google.visualization.LineChartOptions = {
-      title: "Temperature Chart",
-      curveType: "function",
-      legend: "none",
-      chartArea: {
-        // width: '100%'
-      },
-    };
+//     var options: google.visualization.LineChartOptions = {
+//       title: "Temperature Chart",
+//       curveType: "function",
+//       legend: "none",
+//       chartArea: {
+//         // width: '100%'
+//       },
+//     };
 
-    var chart = new google.visualization.LineChart(
-      document.getElementById("curve_chart") as Element
-    );
+//     var chart = new google.visualization.LineChart(
+//       document.getElementById("curve_chart") as Element
+//     );
 
-    chart.draw(data, options);
-  }
-}
+//     chart.draw(data, options);
+//   }
+// }

@@ -1,15 +1,8 @@
 import { faGlobe, faLocation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
-import {
-  Button,
-  Col,
-  Container,
-  Dropdown,
-  Row,
-  Spinner,
-} from "react-bootstrap";
-import { drawChart24Hour } from "./shared/util/chart";
+import { Button, Col, Container, Dropdown, Row, Spinner } from "react-bootstrap";
+// import { drawChart24Hour } from "./shared/util/chart";
 import { LANGUAGES, TRANSLATION } from "./shared/translation";
 import { languageCtx } from "./shared/context/language-context";
 import useLanguage from "./shared/hooks/useLanguage";
@@ -27,6 +20,9 @@ import GooglePlacesAutocomplete, {
   getLatLng,
 } from "react-google-places-autocomplete";
 import Searchbar from "./components/Searchbar";
+import Chart from "react-google-charts";
+import { convertTemperatureToTable } from "./shared/util/chart";
+import { createPortal } from "react-dom";
 
 type chosenDay = {
   id: number;
@@ -41,9 +37,12 @@ function App() {
 
   const { lang, city, setCity } = useContext(languageCtx);
 
+  const [tempTable, setTempTable] = useState<[[string | number, string | number]]>();
+
   useEffect(() => {
     if (!chosenDay) return;
 
+    setTempTable(convertTemperatureToTable(weather!.hourly, chosenDay.id * 24));
     // drawChart24Hour(weather!.hourly, chosenDay.id * 24);
   }, [chosenDay]);
 
@@ -81,8 +80,7 @@ function App() {
           justifyContent: "center",
           alignItems: "center",
           gap: "2vmin",
-        }}
-      >
+        }}>
         {weather &&
           Array.from({ length: 7 }, (_, i) => i).map((i) => (
             <Weather
@@ -104,11 +102,18 @@ function App() {
               lang={lang}
             />
           ))}
-        {isLoading &&
-          Array.from({ length: 7 }, (_, i) => i).map((i) => (
-            <WeatherPlaceholder key={i} />
-          ))}
+        {isLoading && Array.from({ length: 7 }, (_, i) => i).map((i) => <WeatherPlaceholder key={i} />)}
       </div>
+      {tempTable &&
+        createPortal(
+          <Chart
+            chartType="LineChart"
+            data={tempTable}
+            height="400px"
+            legendToggle
+          />,
+          document.querySelector("#curve_chart")!
+        )}
     </>
   );
 }
