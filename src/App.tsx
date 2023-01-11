@@ -42,13 +42,13 @@ function App() {
 
     // get index of current day, keep in mind that fetch request can be cached and be old
 
-    const now = new Date();
-    const cacheDate = new Date(weather!.current_weather.time);
+    const now: any = new Date();
+    const cacheDate: any = new Date(weather!.current_weather.time);
 
-    const diffTime = Math.abs(now - cacheDate);
+    const diffTime = Math.abs((now as any) - (cacheDate as any));
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-    console.log('diffDays', diffDays)
+    console.log("diffDays", diffDays);
 
     const id = diffDays;
     // console.log(id)
