@@ -1,4 +1,4 @@
-import React, { Children, ReactNode, useContext, useState } from "react";
+import React, { Children, ReactNode, useContext, useEffect, useState } from "react";
 import { geocodeByPlaceId } from "react-google-places-autocomplete";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { city } from "../interfaces/weather";
@@ -29,13 +29,8 @@ type languageContextProviderProps = {
 
 // export const useLanguage = useContext(languageCtx);
 
-export function LanguageContextProvider({
-  children,
-}: languageContextProviderProps) {
-  const [lang, setLang] = useLocalStorage(
-    LOCAL_STORAGE.WEATHER_APP_LANGUAGE,
-    "en"
-  );
+export function LanguageContextProvider({ children }: languageContextProviderProps) {
+  const [lang, setLang] = useLocalStorage(LOCAL_STORAGE.WEATHER_APP_LANGUAGE, "en");
 
   const [city, setCity] = useLocalStorage<city>(
     LOCAL_STORAGE.WEATHER_APP_CITY,
@@ -49,6 +44,12 @@ export function LanguageContextProvider({
       },
     }
   );
+
+  // set lang attribute
+  useEffect(() => {
+    document.querySelector("html")!.lang = lang;
+  }, [lang]);
+
   const value = {
     lang,
     setLanguage: (lang: string) => {
@@ -76,7 +77,5 @@ export function LanguageContextProvider({
     },
   };
 
-  return (
-    <languageCtx.Provider value={value as any}>{children}</languageCtx.Provider>
-  );
+  return <languageCtx.Provider value={value as any}>{children}</languageCtx.Provider>;
 }

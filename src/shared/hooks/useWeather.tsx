@@ -24,7 +24,7 @@ export default function useWeather() {
         return response.json();
       })
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         setWeather({
           ...res,
           updatedAt: new Date(),

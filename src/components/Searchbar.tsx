@@ -44,23 +44,24 @@ export default function Searchbar() {
       }
     );
   }
+
   const { city, setCity, lang } = useContext(languageCtx);
   return (
     <Container fluid>
       <Row className="justify-content-center">
-        <Col xs={6}>
+        <Col xs={4}>
           <GooglePlacesAutocomplete
             selectProps={{
               city,
               onChange: setCity,
             }}
-            apiKey="AIzaSyCCbZQu78ae-hjPy0CgYcOer7stF_rgMYo"
+            apiKey={import.meta.env.VITE_APP_GOOGLE_API_KEY}
             apiOptions={{
               language: lang,
             }}
-            // autocompletionRequest={{
-            //   types: ["(cities)"],
-            // }}
+            autocompletionRequest={{
+              types: ["(cities)"],
+            }}
           />
         </Col>
         <Col xs={1}>

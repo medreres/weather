@@ -1,28 +1,16 @@
-import { faGlobe, faLocation } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
-import { Button, Col, Container, Dropdown, Row, Spinner } from "react-bootstrap";
-// import { drawChart24Hour } from "./shared/util/chart";
-import { LANGUAGES, TRANSLATION } from "./shared/translation";
 import { languageCtx } from "./shared/context/language-context";
-import useLanguage from "./shared/hooks/useLanguage";
 import Weather from "./components/Weather";
 import useWeather from "./shared/hooks/useWeather";
 import WeatherToday from "./components/WeatherToday";
 import Navbar from "./components/Navbar";
 import WeatherPlaceholder from "./components/WeatherPlaceholder";
 import WeatherTodayPlaceholder from "./components/WeatherTodayPlaceholder";
-import { hourly } from "./shared/interfaces/weather";
-import GooglePlacesAutocomplete, {
-  geocodeByAddress,
-  geocodeByLatLng,
-  geocodeByPlaceId,
-  getLatLng,
-} from "react-google-places-autocomplete";
 import Searchbar from "./components/Searchbar";
 import Chart from "react-google-charts";
 import { convertTemperatureToTable } from "./shared/util/chart";
 import { createPortal } from "react-dom";
+import Fallback from "./components/Fallback";
 
 type chosenDay = {
   id: number;
@@ -35,9 +23,11 @@ function App() {
 
   const [chosenDay, setChosenDay] = useState<chosenDay>();
 
-  const { lang, city, setCity } = useContext(languageCtx);
+  const { lang, city } = useContext(languageCtx);
 
   const [tempTable, setTempTable] = useState<[[string | number, string | number]]>();
+
+  const [outOfDate, setOutOfDate] = useState(false);
 
   useEffect(() => {
     if (!chosenDay) return;
@@ -50,22 +40,39 @@ function App() {
   useEffect(() => {
     if (isLoading) return;
 
-    const id = 0;
+    // get index of current day, keep in mind that fetch request can be cached and be old
+    const id = new Date().getDay() - new Date(weather!.current_weather.time).getDay();
+    // const id = 7;
+    // console.log(id);
     const indexHour = id * 24 + new Date().getHours();
+
+    // handle if id > 6 and old request
+    // if current day out of range of cached response
+    if (id > 6) return setOutOfDate(true);
 
     if (!chosenDay)
       setChosenDay({
-        id: 0,
+        id,
         temperature: weather!.hourly.temperature_2m[indexHour],
         weathercode: weather!.daily.weathercode[id],
       });
   }, [weather]);
+
+  if (outOfDate)
+    return (
+      <>
+        <Navbar />
+        <Fallback />
+      </>
+    );
 
   return (
     <>
       <Navbar />
 
       <Searchbar />
+
+      
       {chosenDay && (
         <>
           <WeatherToday
@@ -114,6 +121,16 @@ function App() {
           <Chart
             chartType="LineChart"
             data={tempTable}
+            height="400px"
+            legendToggle
+          />,
+          document.querySelector("#curve_chart")!
+        )}
+      {isLoading &&
+        createPortal(
+          <Chart
+            chartType="LineChart"
+            // data={}
             height="400px"
             legendToggle
           />,

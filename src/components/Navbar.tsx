@@ -16,6 +16,7 @@ export default function Navbar() {
     <NavbarBootstrap
       bg="dark"
       variant="dark"
+      className="mb-3"
     >
       <Container fluid>
         <NavbarBootstrap.Brand>Weather</NavbarBootstrap.Brand>

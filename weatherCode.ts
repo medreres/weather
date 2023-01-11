@@ -8,6 +8,7 @@ import {
   faSun,
   IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
+import sunny from './src/assets/icons/sun.png'
 
 const WEATHER_CODE = new Map();
 

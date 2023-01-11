@@ -28,7 +28,7 @@ export default function Weather({
   return (
     <Card
       onClick={onClick}
-      className={`${active ? "active" : ""}`}
+      className={`${active ? "active" : ""} weather-card`}
       style={{
         width: "20vmin",
         margin: "1vmin",
