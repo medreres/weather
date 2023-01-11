@@ -6,6 +6,7 @@ import {
   faFaceDizzy,
   faLocation,
   faPhoneSlash,
+  faSignalPerfect,
   faSlash,
   faSquare,
   faToiletPaperSlash,
@@ -20,7 +21,6 @@ import GooglePlacesAutocomplete, { geocodeByLatLng } from "react-google-places-a
 import { languageCtx } from "../shared/context/language-context";
 import useLanguage from "../shared/hooks/useLanguage";
 import { TRANSLATION } from "../shared/translation";
-import wifiSlash from "../assets/wifi-slash.svg";
 
 export default function Searchbar() {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,19 @@ export default function Searchbar() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
-    setIsOnline(navigator.onLine);
+    // toggle state
+    const handleStatusChange = () => {
+      setIsOnline(navigator.onLine);
+    };
+
+    // cleanup
+    window.addEventListener("online", handleStatusChange);
+    window.addEventListener("offline", handleStatusChange);
+
+    return () => {
+      window.removeEventListener("online", handleStatusChange);
+      window.removeEventListener("offline", handleStatusChange);
+    };
   }, [navigator.onLine]);
 
   // ask user for geo to find out where is he
@@ -92,7 +104,7 @@ export default function Searchbar() {
           <Button
             disabled={isLoading || !isOnline}
             onClick={getLocation}>
-            {!isLoading && <FontAwesomeIcon icon={faLocation} />}
+            {!isLoading && isOnline && <FontAwesomeIcon icon={faLocation} />}
             {isLoading && (
               <Spinner
                 animation="border"
@@ -101,13 +113,13 @@ export default function Searchbar() {
               />
             )}
             {!isOnline && (
-              <img
-                src={wifiSlash}
-                alt="No Wifi"
-                style={{
-                  height: "32px",
-                }}
-              />
+              <span className="fa-layers fa-fw">
+                <FontAwesomeIcon
+                  className="fa-solid"
+                  icon={faWifi}
+                />
+                <FontAwesomeIcon icon={faSlash} />
+              </span>
             )}
           </Button>
         </Col>
