@@ -70,16 +70,16 @@ function App() {
   if (outOfDate)
     return (
       <>
-        <Navbar />
+        <Navbar cityName={city.label.slice(0, city.label.indexOf(','))} />
         <Fallback />
       </>
     );
 
   return (
     <>
-      <Navbar />
+      <Navbar cityName={city.label.slice(0, city.label.indexOf(','))} />
 
-      <Searchbar />
+      {/* <Searchbar /> */}
 
       {chosenDay && (
         <>

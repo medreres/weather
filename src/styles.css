@@ -13,5 +13,8 @@ body {
     /* overscroll-behavior: none; */
 }
 
-.navbar {
+.navbar {}
+
+.street-dropdown .dropdown-menu {
+    min-width: 350px;
 }

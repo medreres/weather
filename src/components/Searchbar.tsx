@@ -80,11 +80,9 @@ export default function Searchbar() {
 
   const { city, setCity, lang } = useContext(languageCtx);
   return (
-    <Container
-      fluid
-      className="mb-2">
-      <Row className="justify-content-center">
-        <Col xs={5}>
+    <Container fluid>
+      <Row>
+        <Col xs={10}>
           <GooglePlacesAutocomplete
             selectProps={{
               city,
@@ -100,7 +98,7 @@ export default function Searchbar() {
             }}
           />
         </Col>
-        <Col xs={1}>
+        <Col xs={2}>
           <Button
             disabled={isLoading || !isOnline}
             onClick={getLocation}>
