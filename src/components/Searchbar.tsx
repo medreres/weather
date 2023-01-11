@@ -2,13 +2,14 @@ import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useState } from "react";
 import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
-import GooglePlacesAutocomplete, {
-  geocodeByLatLng,
-} from "react-google-places-autocomplete";
+import GooglePlacesAutocomplete, { geocodeByLatLng } from "react-google-places-autocomplete";
 import { languageCtx } from "../shared/context/language-context";
+import useLanguage from "../shared/hooks/useLanguage";
+import { TRANSLATION } from "../shared/translation";
 
 export default function Searchbar() {
   const [isLoading, setIsLoading] = useState(false);
+  const translate = useLanguage();
   // ask user for geo to find out where is he
   function getLocation() {
     setIsLoading(true);
@@ -39,9 +40,7 @@ export default function Searchbar() {
       },
       (err) => {
         setIsLoading(false);
-        alert(
-          "Couldnt find your address. Please check if all required permissions are granted."
-        );
+        alert(translate(TRANSLATION.LOCATION_UNAVAILABLE));
       }
     );
   }
@@ -65,10 +64,16 @@ export default function Searchbar() {
           />
         </Col>
         <Col xs={1}>
-          <Button disabled={isLoading} onClick={getLocation}>
+          <Button
+            disabled={isLoading}
+            onClick={getLocation}>
             {!isLoading && <FontAwesomeIcon icon={faLocation} />}
             {isLoading && (
-              <Spinner animation="border" variant="light" size="sm" />
+              <Spinner
+                animation="border"
+                variant="light"
+                size="sm"
+              />
             )}
           </Button>
         </Col>

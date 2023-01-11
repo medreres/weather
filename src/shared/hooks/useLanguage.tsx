@@ -33,6 +33,11 @@ export default function useLanguage() {
         const currentLanguage = getLanguage();
         return (currentLanguage as any)[TRANSLATION.UPDATEAD_AT];
       }
+      case TRANSLATION.LOCATION_UNAVAILABLE: {
+        const currentLanguage = getLanguage();
+        return (currentLanguage as any)[TRANSLATION.LOCATION_UNAVAILABLE];
+      }
+
 
       // weather translation©
       case TRANSLATION.CLEAR_SKY: {

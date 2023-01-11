@@ -61,8 +61,6 @@ function App() {
       });
   }, [weather]);
 
-  console.log(Intl.DateTimeFormat().resolvedOptions().timeZone.split('/').join('%2F'))
-
   return (
     <>
       <Navbar />
