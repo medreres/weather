@@ -40,8 +40,7 @@ export default function Navbar({ cityName }: NavbarProps) {
                 align={{ lg: "end" }}>
                 <Searchbar />
               </NavDropdown>
-              <Dropdown.Divider />
-              <Dropdown>
+              <Dropdown  align={{ lg: 'end' }}>
                 <Dropdown.Toggle>
                   <FontAwesomeIcon icon={faGlobe} /> {translate(TRANSLATION.LANGUAGE)}
                 </Dropdown.Toggle>
