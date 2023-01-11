@@ -14,6 +14,7 @@ export type weather = {
   daily: daily;
   current_weather: currentWeather;
   hourly: hourly;
+  updatedAt: Date;
 };
 
 export type currentWeather = {

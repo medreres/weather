@@ -27,12 +27,23 @@ export default defineConfig({
         name: "Weather App",
         short_name: "Weather",
         description: "Weather prediction for the following week",
-        theme_color: "#ffffff",
+        theme_color: "#212529",
         icons: [
           {
-            src: "icon.png",
-            sizes: "16x16",
+            src: "pwa-192x192.png",
+            sizes: "192x192",
             type: "image/png",
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable",
           },
         ],
       },

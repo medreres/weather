@@ -29,6 +29,10 @@ export default function useLanguage() {
         const currentLanguage = getLanguage();
         return (currentLanguage as any)[TRANSLATION.INTERFACE_LANGUAGE];
       }
+      case TRANSLATION.UPDATEAD_AT: {
+        const currentLanguage = getLanguage();
+        return (currentLanguage as any)[TRANSLATION.UPDATEAD_AT];
+      }
 
       // weather translation©
       case TRANSLATION.CLEAR_SKY: {

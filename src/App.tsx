@@ -64,13 +64,17 @@ function App() {
   return (
     <>
       <Navbar />
+
       <Searchbar />
       {chosenDay && (
-        <WeatherToday
-          cityName={city.label}
-          temperature={chosenDay?.temperature}
-          weathercode={chosenDay?.weathercode}
-        />
+        <>
+          <WeatherToday
+            cityName={city.label}
+            temperature={chosenDay?.temperature}
+            weathercode={chosenDay?.weathercode}
+            updatedAt={weather!.updatedAt}
+          />
+        </>
       )}
       {isLoading && <WeatherTodayPlaceholder />}
       <div
@@ -102,6 +106,7 @@ function App() {
               lang={lang}
             />
           ))}
+
         {isLoading && Array.from({ length: 7 }, (_, i) => i).map((i) => <WeatherPlaceholder key={i} />)}
       </div>
       {tempTable &&

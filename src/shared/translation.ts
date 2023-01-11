@@ -16,6 +16,7 @@ export const TRANSLATION = {
   // interface
   LANGUAGE: "lang",
   INTERFACE_LANGUAGE: "INTERFACE_LANGUAGE",
+  UPDATEAD_AT: "UPDATEAD_AT",
 
   // weather
   CLEAR_SKY: "CLEAR_SKY",
