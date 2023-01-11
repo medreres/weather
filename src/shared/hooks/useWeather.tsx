@@ -14,14 +14,15 @@ export default function useWeather() {
     setIsLoading(true);
     fetch(
       `
-        https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=Europe%2FMoscow
+        https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=Africa%2FCairo
         `
     )
       .then((response) => {
-        console.log(response.headers.get('Date'));
+        console.log(response.headers.get('Date'))
         return response.json();
       })
       .then((res) => {
+        console.log(res)
         setWeather({
           ...res,
           updatedAt: new Date(),

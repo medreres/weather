@@ -10,12 +10,13 @@ type WeatherTodayProps = {
   weathercode: number;
   temperature: number;
   cityName: string;
-  updatedAt: Date;
+  updatedAt: string;
 };
 
 export default function WeatherToday({ weathercode, temperature, cityName, updatedAt }: WeatherTodayProps) {
   const translate = useLanguage();
   const { lang } = useContext(languageCtx);
+
   return (
     <div className="w-100 text-center">
       <h1>{cityName}</h1>
@@ -29,7 +30,7 @@ export default function WeatherToday({ weathercode, temperature, cityName, updat
       <p className="text-secondary">
         {translate(TRANSLATION.UPDATEAD_AT)}:{" "}
         <span>
-          {updatedAt.toLocaleString(lang, {
+          {new Date(updatedAt).toLocaleString(lang, {
             weekday: "long",
             month: "long",
             day: "numeric",

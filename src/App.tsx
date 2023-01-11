@@ -72,7 +72,7 @@ function App() {
             cityName={city.label}
             temperature={chosenDay?.temperature}
             weathercode={chosenDay?.weathercode}
-            updatedAt={weather!.updatedAt}
+            updatedAt={weather!.current_weather.time}
           />
         </>
       )}

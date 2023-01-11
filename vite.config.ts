@@ -6,12 +6,12 @@ import react from "@vitejs/plugin-react";
 
 const getCache = ({ name, pattern }: any) => ({
   urlPattern: pattern,
-  handler: "CacheFirst" as const,
+  handler: "NetworkFirst" as const,
   options: {
     cacheName: name,
     expiration: {
       maxEntries: 500,
-      maxAgeSeconds: 60 * 60 * 24 * 365 * 2, // 2 years
+      maxAgeSeconds: 60 * 60 * 24 * 365, // 1 years
     },
     cacheableResponse: {
       statuses: [200],
