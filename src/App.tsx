@@ -41,9 +41,18 @@ function App() {
     if (isLoading) return;
 
     // get index of current day, keep in mind that fetch request can be cached and be old
-    const id = new Date().getDay() - new Date(weather!.current_weather.time).getDay();
+
+    const now = new Date();
+    const cacheDate = new Date(weather!.current_weather.time);
+
+    const diffTime = Math.abs(now - cacheDate);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    console.log('diffDays', diffDays)
+
+    const id = diffDays;
+    // console.log(id)
     // const id = 7;
-    // console.log(id);
     const indexHour = id * 24 + new Date().getHours();
 
     // handle if id > 6 and old request
@@ -72,7 +81,6 @@ function App() {
 
       <Searchbar />
 
-      
       {chosenDay && (
         <>
           <WeatherToday
