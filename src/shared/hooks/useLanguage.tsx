@@ -37,6 +37,14 @@ export default function useLanguage() {
         const currentLanguage = getLanguage();
         return (currentLanguage as any)[TRANSLATION.LOCATION_UNAVAILABLE];
       }
+      case TRANSLATION.WEATHER: {
+        const currentLanguage = getLanguage();
+        return (currentLanguage as any)[TRANSLATION.WEATHER];
+      }
+      case TRANSLATION.LOCATION: {
+        const currentLanguage = getLanguage();
+        return (currentLanguage as any)[TRANSLATION.LOCATION];
+      }
 
 
       // weather translation©

@@ -11,6 +11,8 @@ import Chart from "react-google-charts";
 import { convertTemperatureToTable } from "./shared/util/chart";
 import { createPortal } from "react-dom";
 import Fallback from "./components/Fallback";
+import Test from './components/Test'
+
 
 type chosenDay = {
   id: number;
@@ -70,14 +72,16 @@ function App() {
   if (outOfDate)
     return (
       <>
-        <Navbar cityName={city.label.slice(0, city.label.indexOf(','))} />
+        <Navbar cityName={city.label.slice(0, city.label.indexOf(","))} />
         <Fallback />
       </>
     );
 
   return (
     <>
-      <Navbar cityName={city.label.slice(0, city.label.indexOf(','))} />
+      <Navbar cityName={city.label.slice(0, city.label.indexOf(","))} />
+
+      {/* <Test /> */}
 
       {/* <Searchbar /> */}
 

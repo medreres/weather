@@ -3,6 +3,8 @@
     "INTERFACE_LANGUAGE": "Inteface language",
     "UPDATEAD_AT": "Updated At",
     "LOCATION_UNAVAILABLE": "Your location is unavailable, please enter the location manually",
+    "WEATHER" : "Weather",
+    "LOCATION": "Location",
 
     "MAINLY_CLEAR ": "Mainly clear,partly cloudy,and overcast ",
     "CLEAR_SKY": "Clear sky",

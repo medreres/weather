@@ -15,6 +15,6 @@ body {
 
 .navbar {}
 
-.street-dropdown .dropdown-menu {
+.location-dropdown {
     min-width: 350px;
 }
