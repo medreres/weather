@@ -4,20 +4,23 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 
-const getCache = ({ name, pattern }: any) => ({
-  urlPattern: pattern,
-  handler: "NetworkFirst" as const,
-  options: {
-    cacheName: name,
-    expiration: {
-      maxEntries: 500,
-      maxAgeSeconds: 60 * 60 * 24 * 365, // 1 years
+const getCache = ({ name, pattern }: any) => {
+  console.log(pattern);
+  return {
+    urlPattern: pattern,
+    handler: "NetworkFirst" as const,
+    options: {
+      cacheName: name,
+      expiration: {
+        maxEntries: 500,
+        maxAgeSeconds: 60 * 60 * 24 * 365, // 1 years
+      },
+      cacheableResponse: {
+        statuses: [200],
+      },
     },
-    cacheableResponse: {
-      statuses: [200],
-    },
-  },
-});
+  };
+};
 
 export default defineConfig({
   plugins: [
@@ -56,9 +59,9 @@ export default defineConfig({
           }),
         ],
       },
-      devOptions: {
-        enabled: true,
-      },
+      // devOptions: {
+      //   enabled: true,
+      // },
     }),
   ],
   server: {

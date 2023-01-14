@@ -26,6 +26,7 @@ export default function Searchbar() {
   const [isLoading, setIsLoading] = useState(false);
   const translate = useLanguage();
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const { darkMode } = useContext(languageCtx);
 
   useEffect(() => {
     // toggle state
@@ -88,7 +89,9 @@ export default function Searchbar() {
               city,
               onChange: setCity,
               isDisabled: !isOnline,
+              className: 'fluid'
             }}
+            debounce={1000}
             apiKey={import.meta.env.VITE_APP_GOOGLE_API_KEY}
             apiOptions={{
               language: lang,
@@ -100,13 +103,13 @@ export default function Searchbar() {
         </Col>
         <Col xs={2}>
           <Button
+            variant={darkMode ? "outline-success" : "primary"}
             disabled={isLoading || !isOnline}
             onClick={getLocation}>
             {!isLoading && isOnline && <FontAwesomeIcon icon={faLocation} />}
             {isLoading && (
               <Spinner
                 animation="border"
-                variant="light"
                 size="sm"
               />
             )}

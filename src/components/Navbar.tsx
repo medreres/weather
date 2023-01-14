@@ -6,6 +6,7 @@ import {
   Container,
   Dropdown,
   DropdownButton,
+  Form,
   ListGroup,
   ListGroupItem,
   Nav,
@@ -22,7 +23,6 @@ import useLanguage from "../shared/hooks/useLanguage";
 import { TRANSLATION, LANGUAGES } from "../shared/translation";
 import OffcanvasCustom from "./OffcanvasCustom";
 import Searchbar from "./Searchbar";
-import Test from "./Test";
 interface NavbarProps {
   cityName: string;
 }
@@ -31,7 +31,7 @@ const SMALL_SCREEN = 576;
 
 export default function Navbar({ cityName }: NavbarProps) {
   const translate = useLanguage();
-  const { lang, setLanguage } = useContext(languageCtx);
+  const { lang, setLanguage, darkMode, toggleDarkMode } = useContext(languageCtx);
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -58,21 +58,41 @@ export default function Navbar({ cityName }: NavbarProps) {
     <NavbarBootstrap
       bg="dark"
       variant="dark"
-      className="mb-3"
+      className={`mb-3 ${darkMode ? "bg-body-tertiary" : ""}`}
       expand="sm">
       <Container fluid>
         <NavbarBootstrap.Brand>{translate(TRANSLATION.WEATHER)}</NavbarBootstrap.Brand>
         {/* destkop view */}
         {screenWidth > SMALL_SCREEN && (
-          <Stack direction="horizontal"  gap={2}>
-            <Dropdown  align={{ sm: "end" }}>
-              <DropdownToggle>{cityName}</DropdownToggle>
+          <Stack
+            direction="horizontal"
+            className="aling-items-center"
+            gap={2}>
+            <Container
+              className="d-inline-flex justify-content-between
+               align-items-center
+             text-white"
+              style={{
+                minWidth: "40px",
+              }}>
+              <Form.Label className="d-flex align-items-center justify-content-center">
+                Dark
+                <Form.Check
+                  type="switch"
+                  aria-label="Dark"
+                  checked={darkMode}
+                  onChange={toggleDarkMode}
+                />
+              </Form.Label>
+            </Container>
+            <Dropdown align={{ sm: "end" }}>
+              <DropdownToggle variant={darkMode ? "outline-success" : "dark"}>{cityName}</DropdownToggle>
               <DropdownMenu className="location-dropdown">
                 <Searchbar />
               </DropdownMenu>
             </Dropdown>
             <Dropdown align={{ sm: "end" }}>
-              <Dropdown.Toggle>
+              <Dropdown.Toggle variant={darkMode ? "outline-success" : "dark"}>
                 <FontAwesomeIcon icon={faGlobe} /> {translate(TRANSLATION.LANGUAGE)}
               </Dropdown.Toggle>
               <Dropdown.Menu>
@@ -107,14 +127,27 @@ export default function Navbar({ cityName }: NavbarProps) {
               <Offcanvas.Body>
                 <ListGroup variant="flush">
                   <ListGroupItem
+                    className="d-flex justify-content-between align-items-center"
                     action
                     onClick={toggleLocationCanvas}>
                     <span>{translate(TRANSLATION.LOCATION)}</span> <FontAwesomeIcon icon={faLocation} />
                   </ListGroupItem>
                   <ListGroupItem
+                    className="d-flex justify-content-between align-items-center"
                     action
                     onClick={toggleLanguageCanvas}>
                     <span>{translate(TRANSLATION.LANGUAGE)}</span> <FontAwesomeIcon icon={faLanguage} />
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <Form.Label className="d-flex justify-content-between align-items-center">
+                      Dark
+                      <Form.Check
+                        type="switch"
+                        aria-label="Dark"
+                        checked={darkMode}
+                        onChange={toggleDarkMode}
+                      />
+                    </Form.Label>
                   </ListGroupItem>
                 </ListGroup>
 

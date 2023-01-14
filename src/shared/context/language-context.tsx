@@ -6,6 +6,8 @@ import { LOCAL_STORAGE } from "../translation";
 
 export const languageCtx = React.createContext({
   lang: "uk",
+  darkMode: false,
+  toggleDarkMode: () => {},
   setLanguage: (language: string) => {},
   setLatitude: (lat: number) => {},
   setLongtitude: (lnt: number) => {},
@@ -31,6 +33,9 @@ type languageContextProviderProps = {
 
 export function LanguageContextProvider({ children }: languageContextProviderProps) {
   const [lang, setLang] = useLocalStorage(LOCAL_STORAGE.WEATHER_APP_LANGUAGE, "en");
+  const [darkMode, setDarkMode] = useLocalStorage(LOCAL_STORAGE.WEATHER_APP_DARK_MODE, false);
+
+  const toggleDarkMode = () => setDarkMode((prevState) => !prevState);
 
   const [city, setCity] = useLocalStorage<city>(
     LOCAL_STORAGE.WEATHER_APP_CITY,
@@ -51,6 +56,8 @@ export function LanguageContextProvider({ children }: languageContextProviderPro
   }, [lang]);
 
   const value = {
+    darkMode,
+    toggleDarkMode,
     lang,
     setLanguage: (lang: string) => {
       setLang(lang);

@@ -6,9 +6,12 @@ import { LanguageContextProvider } from "./shared/context/language-context";
 import "./styles.css";
 import { registerSW } from "virtual:pwa-register";
 
-if ("serviceWorker" in navigator && !/localhost/.test(window.location as any)) {
+if ("serviceWorker" in navigator) {
   // && !/localhost/.test(window.location)) {
+  // console.log(caches.keys());
   registerSW();
+} else {
+  console.log("no");
 }
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

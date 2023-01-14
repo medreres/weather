@@ -18,3 +18,12 @@ body {
 .location-dropdown {
     min-width: 350px;
 }
+
+.form-switch {
+    display: flex;
+    justify-content: end;
+}
+
+.dark {
+    background-color: #212529;
+}

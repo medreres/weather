@@ -8,11 +8,9 @@ import WeatherPlaceholder from "./components/WeatherPlaceholder";
 import WeatherTodayPlaceholder from "./components/WeatherTodayPlaceholder";
 import Searchbar from "./components/Searchbar";
 import Chart from "react-google-charts";
-import { convertTemperatureToTable } from "./shared/util/chart";
+import { convertTemperatureToTable, drawChart } from "./shared/util/chart";
 import { createPortal } from "react-dom";
 import Fallback from "./components/Fallback";
-import Test from './components/Test'
-
 
 type chosenDay = {
   id: number;
@@ -25,18 +23,27 @@ function App() {
 
   const [chosenDay, setChosenDay] = useState<chosenDay>();
 
-  const { lang, city } = useContext(languageCtx);
+  const { lang, city, darkMode } = useContext(languageCtx);
 
   const [tempTable, setTempTable] = useState<[[string | number, string | number]]>();
 
   const [outOfDate, setOutOfDate] = useState(false);
 
-  useEffect(() => {
-    if (!chosenDay) return;
+  // useEffect(() => {
+  //   if (!chosenDay) return;
 
-    setTempTable(convertTemperatureToTable(weather!.hourly, chosenDay.id * 24));
-    // drawChart24Hour(weather!.hourly, chosenDay.id * 24);
-  }, [chosenDay]);
+  //   // setTempTable(convertTemperatureToTable(weather!.hourly, chosenDay.id * 24));
+  //   drawChart(convertTemperatureToTable(weather!.hourly, chosenDay.id * 24));
+  // }, [chosenDay]);
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+
+    darkMode ? html?.setAttribute("data-bs-theme", "dark") : html?.setAttribute("data-bs-theme", "light");
+
+    // classList?.toggle("dark");
+    // classList?.toggle("light");
+  }, [darkMode]);
 
   // draw chart when weather is loaded
   useEffect(() => {
@@ -50,7 +57,7 @@ function App() {
     const diffTime = Math.abs((now as any) - (cacheDate as any));
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-    console.log("diffDays", diffDays);
+    // console.log("diffDays", diffDays);
 
     const id = diffDays;
     // console.log(id)
@@ -128,26 +135,17 @@ function App() {
 
         {isLoading && Array.from({ length: 7 }, (_, i) => i).map((i) => <WeatherPlaceholder key={i} />)}
       </div>
-      {tempTable &&
+      {/* {tempTable &&
         createPortal(
           <Chart
             chartType="LineChart"
             data={tempTable}
             height="400px"
-            legendToggle
+            loader={'hello'}
+            // legendToggle
           />,
           document.querySelector("#curve_chart")!
-        )}
-      {isLoading &&
-        createPortal(
-          <Chart
-            chartType="LineChart"
-            // data={}
-            height="400px"
-            legendToggle
-          />,
-          document.querySelector("#curve_chart")!
-        )}
+        )} */}
     </>
   );
 }
