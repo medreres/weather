@@ -1,12 +1,12 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { LanguageContextProvider } from "../../../../shared/context/language-context";
+import { LanguageContextProvider } from "../../../Weather/context/language-context";
 import { SMALL_SCREEN } from "../../../../shared/data/const";
 import en from "../../../../shared/lang/english.json";
 import uk from "../../../../shared/lang/ukrainian.json";
 import Navbar from "../Navbar";
-import { toggleUkrainianDesktop } from "./utils/toggleUkrainian";
-import { mockDestkop, mockMobile } from "./utils/mockMedia";
+import { mockDestkop, mockMobile } from "../../../../shared/utils/mockMedia";
+import { toggleUkrainianDesktop } from "../../../../shared/utils/toggleUkrainian";
 
 const MockNavbar = () => {
   const cityName = "Sambir";

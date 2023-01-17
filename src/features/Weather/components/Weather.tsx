@@ -1,30 +1,23 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { MouseEventHandler } from "react";
+import React, { useContext } from "react";
 import { Card } from "react-bootstrap";
-import { getIcon, getDescription } from "../../../../weatherCode";
+import { getIcon, getDescription } from "../utils/weatherCode";
+import { languageCtx } from "../context/language-context";
 import useLanguage from "../../../shared/hooks/useTranslation";
-import { getDay, normalizeTemp } from "../../../shared/util/formatting";
+import { getDay, normalizeDate, normalizeTemp } from "../utils/formatting";
 
 type WeatherProps = {
   time: string;
   weathercode: number;
   temp_min: number;
   temp_max: number;
-  lang: string;
   active: boolean;
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-export default function Weather({
-  time,
-  weathercode,
-  temp_min,
-  temp_max,
-  lang,
-  active,
-  onClick,
-}: WeatherProps) {
+export default function Weather({ time, weathercode, temp_min, temp_max, active, onClick }: WeatherProps) {
   const translate = useLanguage();
+  const { lang } = useContext(languageCtx);
   return (
     <Card
       onClick={onClick}
@@ -35,7 +28,7 @@ export default function Weather({
         fontSize: "3vmin",
         minWidth: "22vmin",
       }}
-    >
+      data-testid="weather">
       <Card.Body>
         <Card.Title
           style={{
@@ -43,17 +36,20 @@ export default function Weather({
             whiteSpace: "nowrap",
             overflow: "hidden",
           }}
-        >
-          {getDay(time, lang)}, {new Date(time).getDate()}
+          data-testid="date">
+          {normalizeDate(time, lang)}
         </Card.Title>
-        <FontAwesomeIcon size="2x" icon={getIcon(weathercode)} />
+        <FontAwesomeIcon
+          size="2x"
+          icon={getIcon(weathercode)}
+        />
         <Card.Text>
           <span
             style={{
               fontSize: "8vmin",
               letterSpacing: "-5px",
             }}
-          >
+            data-testid="min-temp">
             {normalizeTemp(temp_min)}˚
           </span>
           <span
@@ -61,7 +57,7 @@ export default function Weather({
               fontSize: "4vmin",
               letterSpacing: "-2px",
             }}
-          >
+            data-testid="max-temp">
             {normalizeTemp(temp_max)}˚
           </span>
           <br />
@@ -71,7 +67,7 @@ export default function Weather({
               lineHeight: "1.5vmin",
               display: "inline-block",
             }}
-          >
+            data-testid="description">
             {translate(getDescription(weathercode))}
           </span>
         </Card.Text>

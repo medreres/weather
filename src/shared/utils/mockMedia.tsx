@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import { SMALL_SCREEN } from "../../../../../shared/data/const";
+import { SMALL_SCREEN } from "../data/const";
 
 export default Object.defineProperty(window, "matchMedia", {
   writable: true,

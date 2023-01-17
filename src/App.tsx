@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { languageCtx } from "./shared/context/language-context";
-import Weather from "./components/ui/Weather/Weather";
-import useWeather from "./shared/hooks/useWeather";
-import WeatherToday from "./components/ui/Weather/WeatherToday";
-import Navbar from "./components/ui/Navbar/Navbar";
-import WeatherPlaceholder from "./components/ui/Weather/Placeholders/WeatherPlaceholder";
-import WeatherTodayPlaceholder from "./components/ui/Weather/Placeholders/WeatherTodayPlaceholder";
+import { languageCtx } from "./features/Weather/context/language-context";
+import Weather from "./features/Weather/components/Weather";
+import useWeather from "./features/Weather/hooks/useWeather";
+import WeatherToday from "./features/Weather/components/WeatherToday";
+import Navbar from "./features/Navbar/components/Navbar";
+import WeatherPlaceholder from "./features/Weather/Placeholders/WeatherPlaceholder";
+import WeatherTodayPlaceholder from "./features/Weather/Placeholders/WeatherTodayPlaceholder";
 import Fallback from "./components/Fallback/Fallback";
 
 type chosenDay = {
@@ -100,7 +100,6 @@ function App() {
               weathercode={weather.daily.weathercode[i]}
               temp_min={weather.daily.temperature_2m_min[i]}
               temp_max={weather.daily.temperature_2m_max[i]}
-              lang={lang}
             />
           ))}
 

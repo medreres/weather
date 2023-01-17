@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { Stack, Container, Form, Dropdown } from "react-bootstrap";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
-import { languageCtx } from "../../../shared/context/language-context";
+import { languageCtx } from "../../Weather/context/language-context";
 import useLanguage from "../../../shared/hooks/useTranslation";
 import { TRANSLATION, LANGUAGES } from "../../../shared/lang/translation";
 import Searchbar from "./Searchbar";

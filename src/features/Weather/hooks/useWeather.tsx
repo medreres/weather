@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { languageCtx } from "../context/language-context";
-import { weather } from "../interfaces/weather";
+import { weather } from "../../../shared/interfaces/weather";
 
 export default function useWeather() {
   const [weather, setWeather] = useState<weather | null>();

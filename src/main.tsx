@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { LanguageContextProvider } from "./shared/context/language-context";
+import { LanguageContextProvider } from "./features/Weather/context/language-context";
 import "./styles.css";
 import { registerSW } from "virtual:pwa-register";
 

@@ -1,10 +1,10 @@
 import React, { ReactNode, useEffect } from "react";
 import { geocodeByPlaceId } from "react-google-places-autocomplete";
-import useDarkmode from "../hooks/useDarkmode";
-import useLanguge from "../hooks/useLanguge";
-import useLocalStorage from "../hooks/useLocalStorage";
-import { city } from "../interfaces/weather";
-import { LOCAL_STORAGE } from "../lang/translation";
+import useDarkmode from "../../Navbar/components/useDarkmode";
+import useLanguge from "../../../shared/hooks/useLanguge";
+import useLocalStorage from "../../../shared/hooks/useLocalStorage";
+import { city } from "../../../shared/interfaces/weather";
+import { LOCAL_STORAGE } from "../../../shared/lang/translation";
 
 export const languageCtx = React.createContext({
   lang: "en", // default values

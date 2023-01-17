@@ -1,4 +1,4 @@
-import { hourly } from "./../interfaces/weather";
+import { hourly } from "../interfaces/weather";
 
 export function convertTemperatureToTable(hourly: hourly, startFrom: number = 0) {
   const arrayToTable: [[string | number, string | number]] = [

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import uk from "../lang/ukrainian.json";
 import en from "../lang/english.json";
-import { languageCtx } from "../context/language-context";
+import { languageCtx } from "../../features/Weather/context/language-context";
 
 export default function useLanguage() {
   const { lang } = useContext(languageCtx);

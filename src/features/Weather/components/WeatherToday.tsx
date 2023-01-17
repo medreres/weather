@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
-import { getIcon, getDescription } from "../../../../weatherCode";
-import { languageCtx } from "../../../shared/context/language-context";
+import { getIcon, getDescription } from "../utils/weatherCode";
+import { languageCtx } from "../context/language-context";
 import useLanguage from "../../../shared/hooks/useTranslation";
 import { TRANSLATION } from "../../../shared/lang/translation";
-import { normalizeTemp } from "../../../shared/util/formatting";
+import { normalizeTemp } from "../utils/formatting";
 
 type WeatherTodayProps = {
   weathercode: number;
