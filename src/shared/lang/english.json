@@ -1,10 +1,15 @@
 {
-    "lang": "Language",
+    "LANGUAGE": "Language",
     "INTERFACE_LANGUAGE": "Inteface language",
     "UPDATEAD_AT": "Updated At",
     "LOCATION_UNAVAILABLE": "Your location is unavailable, please enter the location manually",
     "WEATHER" : "Weather",
     "LOCATION": "Location",
+    "ERROR": "Error",
+    "OUT_OF_DATE": "Weather Forecast is out of date",
+    "EXPIRED": "Data is expired. Connect to internet to get the lastet weather forecast",
+    "RELOAD": "Reload",
+    "DARK_MODE": "Dark Mode",
 
     "MAINLY_CLEAR ": "Mainly clear,partly cloudy,and overcast ",
     "CLEAR_SKY": "Clear sky",

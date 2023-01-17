@@ -10,9 +10,8 @@ if ("serviceWorker" in navigator) {
   // && !/localhost/.test(window.location)) {
   // console.log(caches.keys());
   registerSW();
-} else {
-  console.log("no");
 }
+
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <LanguageContextProvider>

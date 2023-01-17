@@ -1,16 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { languageCtx } from "./shared/context/language-context";
-import Weather from "./components/Weather";
+import Weather from "./components/ui/Weather/Weather";
 import useWeather from "./shared/hooks/useWeather";
-import WeatherToday from "./components/WeatherToday";
-import Navbar from "./components/Navbar";
-import WeatherPlaceholder from "./components/WeatherPlaceholder";
-import WeatherTodayPlaceholder from "./components/WeatherTodayPlaceholder";
-import Searchbar from "./components/Searchbar";
-import Chart from "react-google-charts";
-import { convertTemperatureToTable, drawChart } from "./shared/util/chart";
-import { createPortal } from "react-dom";
-import Fallback from "./components/Fallback";
+import WeatherToday from "./components/ui/Weather/WeatherToday";
+import Navbar from "./components/ui/Navbar/Navbar";
+import WeatherPlaceholder from "./components/ui/Weather/Placeholders/WeatherPlaceholder";
+import WeatherTodayPlaceholder from "./components/ui/Weather/Placeholders/WeatherTodayPlaceholder";
+import Fallback from "./components/Fallback/Fallback";
 
 type chosenDay = {
   id: number;
@@ -20,30 +16,10 @@ type chosenDay = {
 
 function App() {
   const { weather, isLoading } = useWeather();
-
   const [chosenDay, setChosenDay] = useState<chosenDay>();
-
   const { lang, city, darkMode } = useContext(languageCtx);
-
   const [tempTable, setTempTable] = useState<[[string | number, string | number]]>();
-
   const [outOfDate, setOutOfDate] = useState(false);
-
-  // useEffect(() => {
-  //   if (!chosenDay) return;
-
-  //   // setTempTable(convertTemperatureToTable(weather!.hourly, chosenDay.id * 24));
-  //   drawChart(convertTemperatureToTable(weather!.hourly, chosenDay.id * 24));
-  // }, [chosenDay]);
-
-  useEffect(() => {
-    const html = document.querySelector("html");
-
-    darkMode ? html?.setAttribute("data-bs-theme", "dark") : html?.setAttribute("data-bs-theme", "light");
-
-    // classList?.toggle("dark");
-    // classList?.toggle("light");
-  }, [darkMode]);
 
   // draw chart when weather is loaded
   useEffect(() => {
@@ -87,22 +63,17 @@ function App() {
   return (
     <>
       <Navbar cityName={city.label.slice(0, city.label.indexOf(","))} />
-
-      {/* <Test /> */}
-
-      {/* <Searchbar /> */}
-
       {chosenDay && (
-        <>
-          <WeatherToday
-            cityName={city.label}
-            temperature={chosenDay?.temperature}
-            weathercode={chosenDay?.weathercode}
-            updatedAt={weather!.current_weather.time}
-          />
-        </>
+        <WeatherToday
+          cityName={city.label}
+          temperature={chosenDay?.temperature}
+          weathercode={chosenDay?.weathercode}
+          updatedAt={weather!.current_weather.time}
+        />
       )}
+
       {isLoading && <WeatherTodayPlaceholder />}
+
       <div
         style={{
           display: "grid",

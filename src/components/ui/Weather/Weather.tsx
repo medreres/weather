@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { MouseEventHandler } from "react";
 import { Card } from "react-bootstrap";
-import { getIcon, getDescription } from "../../weatherCode";
-import useLanguage from "../shared/hooks/useLanguage";
-import { getDay, normalizeTemp } from "../shared/util/formatting";
+import { getIcon, getDescription } from "../../../../weatherCode";
+import useLanguage from "../../../shared/hooks/useTranslation";
+import { getDay, normalizeTemp } from "../../../shared/util/formatting";
 
 type WeatherProps = {
   time: string;

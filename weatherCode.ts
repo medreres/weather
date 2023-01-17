@@ -1,4 +1,4 @@
-import { TRANSLATION } from "./src/shared/translation";
+import { TRANSLATION } from "./src/shared/lang/translation";
 import {
   faCloudBolt,
   faCloudShowersHeavy,

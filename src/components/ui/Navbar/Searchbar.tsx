@@ -1,26 +1,15 @@
 import {
-  faArrowRightToFile,
-  faCheck,
-  faCocktail,
-  faCoffee,
-  faFaceDizzy,
   faLocation,
-  faPhoneSlash,
-  faSignalPerfect,
   faSlash,
-  faSquare,
-  faToiletPaperSlash,
   faWifi,
-  faWifi3,
-  faWifiStrong,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import GooglePlacesAutocomplete, { geocodeByLatLng } from "react-google-places-autocomplete";
-import { languageCtx } from "../shared/context/language-context";
-import useLanguage from "../shared/hooks/useLanguage";
-import { TRANSLATION } from "../shared/translation";
+import { languageCtx } from "../../../shared/context/language-context";
+import useLanguage from "../../../shared/hooks/useTranslation";
+import { TRANSLATION } from "../../../shared/lang/translation";
 
 export default function Searchbar() {
   const [isLoading, setIsLoading] = useState(false);
@@ -89,7 +78,7 @@ export default function Searchbar() {
               city,
               onChange: setCity,
               isDisabled: !isOnline,
-              className: 'fluid'
+              className: "fluid",
             }}
             debounce={1000}
             apiKey={import.meta.env.VITE_APP_GOOGLE_API_KEY}
@@ -101,7 +90,9 @@ export default function Searchbar() {
             }}
           />
         </Col>
-        <Col xs={2}>
+        <Col
+          xs={2}
+          className="ps-0">
           <Button
             variant={darkMode ? "outline-success" : "primary"}
             disabled={isLoading || !isOnline}

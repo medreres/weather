@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Card, Placeholder } from "react-bootstrap";
-import { getIcon, getDescription } from "../../weatherCode";
-import { getDay, normalizeTemp } from "../shared/util/formatting";
+import { getIcon, getDescription } from "../../../../../weatherCode";
+import { getDay, normalizeTemp } from "../../../../shared/util/formatting";
 import styles from "./WeatherPlaceholder.module.css";
 
 export default function WeatherPlaceholder() {

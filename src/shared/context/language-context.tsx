@@ -1,11 +1,13 @@
-import React, { Children, ReactNode, useContext, useEffect, useState } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { geocodeByPlaceId } from "react-google-places-autocomplete";
+import useDarkmode from "../hooks/useDarkmode";
+import useLanguge from "../hooks/useLanguge";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { city } from "../interfaces/weather";
-import { LOCAL_STORAGE } from "../translation";
+import { LOCAL_STORAGE } from "../lang/translation";
 
 export const languageCtx = React.createContext({
-  lang: "uk",
+  lang: "en", // default values
   darkMode: false,
   toggleDarkMode: () => {},
   setLanguage: (language: string) => {},
@@ -14,12 +16,12 @@ export const languageCtx = React.createContext({
   latitude: 0,
   longitude: 0,
   city: {
-    label: "",
+    label: "Lviv",
     value: {
       description: "",
-      place_id: "",
-      lng: 1,
-      lat: 2,
+      place_id: "ChIJV5oQCXzdOkcR4ngjARfFI0I",
+      lng: 49.84,
+      lat: 24.02,
     },
   },
   setCity: (city: city) => {},
@@ -32,10 +34,10 @@ type languageContextProviderProps = {
 // export const useLanguage = useContext(languageCtx);
 
 export function LanguageContextProvider({ children }: languageContextProviderProps) {
-  const [lang, setLang] = useLocalStorage(LOCAL_STORAGE.WEATHER_APP_LANGUAGE, "en");
-  const [darkMode, setDarkMode] = useLocalStorage(LOCAL_STORAGE.WEATHER_APP_DARK_MODE, false);
+  const { lang, setLang } = useLanguge();
+  const { darkMode, setDarkMode } = useDarkmode();
 
-  const toggleDarkMode = () => setDarkMode((prevState) => !prevState);
+  const toggleDarkMode = () => setDarkMode((prevState: any) => !prevState);
 
   const [city, setCity] = useLocalStorage<city>(
     LOCAL_STORAGE.WEATHER_APP_CITY,

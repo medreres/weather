@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE } from "../translation";
+import { LOCAL_STORAGE } from "../lang/translation";
 import { languageCtx } from "./../context/language-context";
 import { useContext } from "react";
 export function getDay(date: string, lang?: string) {
