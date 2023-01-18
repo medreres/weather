@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { languageCtx } from "../context/language-context";
-import { weather } from "../../../shared/interfaces/weather";
+import { languageCtx } from "../../../shared/context/app-context";
+import { weather } from "../interface/weather";
 
 export default function useWeather() {
   const [weather, setWeather] = useState<weather | null>();
@@ -22,7 +22,6 @@ export default function useWeather() {
     )
       .then((response) => response.json())
       .then((res) => {
-        // console.log(res)
         setWeather({
           ...res,
           updatedAt: new Date(),

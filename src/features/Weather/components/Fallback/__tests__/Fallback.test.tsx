@@ -1,10 +1,10 @@
 import { describe, expect, it, MockedFunction, vi, vitest } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import Fallback from "../Fallback";
-import { LanguageContextProvider } from "../../../features/Weather/context/language-context";
-import en from "../../../shared/lang/english.json";
-import uk from "../../../shared/lang/ukrainian.json";
-import Navbar from "../../../features/Navbar/components/Navbar";
+import { LanguageContextProvider } from "../../../../../shared/context/app-context";
+import en from "../../../../../shared/lang/english.json";
+import uk from "../../../../../shared/lang/ukrainian.json";
+import Navbar from "../../../../Navbar/components/Navbar";
 
 const MockFallback = () => {
   return (

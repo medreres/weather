@@ -31,3 +31,9 @@ export type city = {
     lng: number;
   };
 };
+
+export type chosenDay = {
+  id: number;
+  temperature: number;
+  weathercode: number;
+};

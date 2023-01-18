@@ -1,0 +1,18 @@
+.weather-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 22vmin);
+    justify-content: center;
+    align-items: center;
+    gap: 1.5vmin;
+}
+
+@media screen and (max-width: 576px) {
+    .weather-container {
+        grid-template-columns: repeat(7, 40vmin);
+        overflow: auto;
+        justify-content:flex-start;
+        padding: 7vmin;
+        padding-left: 18vmin;
+        gap: 3vmin;
+    }
+}

@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { Stack, Container, Form, Dropdown } from "react-bootstrap";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
-import { languageCtx } from "../../Weather/context/language-context";
+import { languageCtx } from "../../../shared/context/app-context";
 import useLanguage from "../../../shared/hooks/useTranslation";
 import { TRANSLATION, LANGUAGES } from "../../../shared/lang/translation";
 import Searchbar from "./Searchbar";
@@ -42,7 +42,10 @@ export default function NavbarDesktop({ cityName }: NavbarDesktopProps) {
 
       <Dropdown align={{ sm: "end" }}>
         <DropdownToggle variant={darkMode ? "outline-success" : "outline-primary"}>{cityName}</DropdownToggle>
-        <DropdownMenu className="location-dropdown">
+        <DropdownMenu
+          style={{
+            minWidth: "350px",
+          }}>
           <Searchbar />
         </DropdownMenu>
       </Dropdown>
@@ -54,7 +57,9 @@ export default function NavbarDesktop({ cityName }: NavbarDesktopProps) {
           <FontAwesomeIcon icon={faGlobe} /> <span data-testid="language-label">{translate(TRANSLATION.LANGUAGE)}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Header data-testid='interface-language'>{translate(TRANSLATION.INTERFACE_LANGUAGE)}</Dropdown.Header>
+          <Dropdown.Header data-testid="interface-language">
+            {translate(TRANSLATION.INTERFACE_LANGUAGE)}
+          </Dropdown.Header>
           <Dropdown.Divider />
           {Object.keys(LANGUAGES).map((option) => (
             <Dropdown.Item

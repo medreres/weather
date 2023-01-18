@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
 import { getIcon, getDescription } from "../utils/weatherCode";
-import { languageCtx } from "../context/language-context";
+import { languageCtx } from "../../../shared/context/app-context";
 import useLanguage from "../../../shared/hooks/useTranslation";
 import { TRANSLATION } from "../../../shared/lang/translation";
 import { normalizeTemp } from "../utils/formatting";

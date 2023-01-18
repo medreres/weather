@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Placeholder } from "react-bootstrap";
-import { getIcon, getDescription } from "../utils/weatherCode";
-import useLanguage from "../../../shared/hooks/useTranslation";
+import { getIcon, getDescription } from "../../utils/weatherCode";
+import useLanguage from "../../../../shared/hooks/useTranslation";
 import styles from "./WeatherPlaceholder.module.css";
 
 export default function WeatherTodayPlaceholder() {

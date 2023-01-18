@@ -1,0 +1,70 @@
+.weather-card {
+    transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+    height: 200px;
+}
+
+@media screen and (min-width: 576px) {
+
+    .weather-card:hover {
+        transform: scale(1.07);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+        cursor: pointer;
+    }
+}
+
+.weather-card.active {
+    transform: scale(1.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+    cursor: pointer;
+}
+
+.weather-title {
+    font-size: 10vmin;
+    /* white-space: nowrap; */
+    overflow: hidden;
+}
+
+.weather-min-temp {
+    font-size: 8vmin;
+    letter-spacing: -5px;
+}
+
+.weather-max-temp {
+    font-size: 4vmin;
+    letter-spacing: -2px;
+}
+
+.weather-description {
+    font-size: 2vmin;
+    line-height: 2.2vmin;
+    display: inline-block;
+    min-height: 7vmin;
+}
+
+@media screen and (max-width: 576px) {
+
+    .weather-title {
+        font-size: 3.5vmin;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+
+    .weather-min-temp {
+        font-size: 8vmin;
+        letter-spacing: -5px;
+    }
+
+    .weather-max-temp {
+        font-size: 4vmin;
+        letter-spacing: -2px;
+    }
+
+    .weather-description {
+        font-size: 3vmin;
+        line-height: 3vmin;
+        display: inline-block;
+        min-height: 10vmin;
+    }
+
+}

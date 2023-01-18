@@ -1,110 +1,17 @@
-import { useContext, useEffect, useState } from "react";
-import { languageCtx } from "./features/Weather/context/language-context";
-import Weather from "./features/Weather/components/Weather";
-import useWeather from "./features/Weather/hooks/useWeather";
-import WeatherToday from "./features/Weather/components/WeatherToday";
-import Navbar from "./features/Navbar/components/Navbar";
-import WeatherPlaceholder from "./features/Weather/Placeholders/WeatherPlaceholder";
-import WeatherTodayPlaceholder from "./features/Weather/Placeholders/WeatherTodayPlaceholder";
-import Fallback from "./components/Fallback/Fallback";
-
-type chosenDay = {
-  id: number;
-  temperature: number;
-  weathercode: number;
-};
+import { useContext, useState } from "react";
+import { languageCtx } from "./shared/context/app-context";
+import Weather from "./features/Weather/Weather";
+import Navbar from "./features/Navbar/Navbar";
 
 function App() {
-  const { weather, isLoading } = useWeather();
-  const [chosenDay, setChosenDay] = useState<chosenDay>();
-  const { lang, city, darkMode } = useContext(languageCtx);
+  const { city } = useContext(languageCtx);
+  const cityName = city.label.slice(0, city.label.indexOf(","));
   const [tempTable, setTempTable] = useState<[[string | number, string | number]]>();
-  const [outOfDate, setOutOfDate] = useState(false);
-
-  // draw chart when weather is loaded
-  useEffect(() => {
-    if (isLoading) return;
-
-    // get index of current day, keep in mind that fetch request can be cached and be old
-
-    const now: any = new Date();
-    const cacheDate: any = new Date(weather!.current_weather.time);
-
-    const diffTime = Math.abs((now as any) - (cacheDate as any));
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-    // console.log("diffDays", diffDays);
-
-    const id = diffDays;
-    // console.log(id)
-    // const id = 7;
-    const indexHour = id * 24 + new Date().getHours();
-
-    // handle if id > 6 and old request
-    // if current day out of range of cached response
-    if (id > 6) return setOutOfDate(true);
-
-    if (!chosenDay)
-      setChosenDay({
-        id,
-        temperature: weather!.hourly.temperature_2m[indexHour],
-        weathercode: weather!.daily.weathercode[id],
-      });
-  }, [weather]);
-
-  if (outOfDate)
-    return (
-      <>
-        <Navbar cityName={city.label.slice(0, city.label.indexOf(","))} />
-        <Fallback />
-      </>
-    );
 
   return (
     <>
-      <Navbar cityName={city.label.slice(0, city.label.indexOf(","))} />
-      {chosenDay && (
-        <WeatherToday
-          cityName={city.label}
-          temperature={chosenDay?.temperature}
-          weathercode={chosenDay?.weathercode}
-          updatedAt={weather!.current_weather.time}
-        />
-      )}
-
-      {isLoading && <WeatherTodayPlaceholder />}
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, 22vmin)",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "2vmin",
-        }}>
-        {weather &&
-          Array.from({ length: 7 }, (_, i) => i).map((i) => (
-            <Weather
-              onClick={() => {
-                const id = i;
-                const indexHour = id * 24 + new Date().getHours();
-                setChosenDay({
-                  id,
-                  weathercode: weather.daily.weathercode[id],
-                  temperature: weather!.hourly.temperature_2m[indexHour],
-                });
-              }}
-              active={chosenDay ? chosenDay.id === i : false}
-              key={i}
-              time={weather.daily.time[i]}
-              weathercode={weather.daily.weathercode[i]}
-              temp_min={weather.daily.temperature_2m_min[i]}
-              temp_max={weather.daily.temperature_2m_max[i]}
-            />
-          ))}
-
-        {isLoading && Array.from({ length: 7 }, (_, i) => i).map((i) => <WeatherPlaceholder key={i} />)}
-      </div>
+      <Navbar cityName={cityName} />
+      <Weather />
       {/* {tempTable &&
         createPortal(
           <Chart

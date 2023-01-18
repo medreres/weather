@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useState } from "react";
 import { Offcanvas, ListGroup, ListGroupItem, Form } from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
-import { languageCtx } from "../../Weather/context/language-context";
+import { languageCtx } from "../../../shared/context/app-context";
 import useLanguage from "../../../shared/hooks/useTranslation";
 import { TRANSLATION, LANGUAGES } from "../../../shared/lang/translation";
 import OffcanvasCustom from "./Offcanvas";

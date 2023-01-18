@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
-import useTranslation from "../../shared/hooks/useTranslation";
-import { TRANSLATION } from "../../shared/lang/translation";
+import useTranslation from "../../../../shared/hooks/useTranslation";
+import { TRANSLATION } from "../../../../shared/lang/translation";
 
 export default function Fallback() {
   const translate = useTranslation();

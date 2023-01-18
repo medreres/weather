@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Navbar as NavbarBootstrap } from "react-bootstrap";
-import { languageCtx } from "../../Weather/context/language-context";
+import { languageCtx } from "../../../shared/context/app-context";
 import useLanguage from "../../../shared/hooks/useTranslation";
 import { TRANSLATION } from "../../../shared/lang/translation";
 import NavbarMobile from "./NavbarMobile";
