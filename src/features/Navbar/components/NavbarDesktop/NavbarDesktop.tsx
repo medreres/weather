@@ -1,3 +1,4 @@
+import { faCity } from "@fortawesome/free-solid-svg-icons";
 import React, { useContext } from "react";
 import { Stack, Container, Form, Dropdown } from "react-bootstrap";
 import { appCtx } from "../../../../shared/context/app-context";
@@ -7,13 +8,9 @@ import LanguageDropdown from "./LanguageDropdown";
 import LocationDropdown from "./LocationDropdown";
 import SettingsDropdown from "./SettingsDropdown";
 
-interface NavbarDesktopProps {
-  cityName: string;
-}
-
-export default function NavbarDesktop({ cityName }: NavbarDesktopProps) {
+export default function NavbarDesktop() {
   const translate = useLanguage();
-  const { darkMode, toggleDarkMode } = useContext(appCtx);
+  const { darkMode, toggleDarkMode, city } = useContext(appCtx);
 
   return (
     <Stack
@@ -29,8 +26,7 @@ export default function NavbarDesktop({ cityName }: NavbarDesktopProps) {
         <Form.Label
           htmlFor="darkmode-check"
           data-testid="darkmode-label"
-          className="mb-0 me-2"
-          >
+          className="mb-0 me-2">
           {translate(TRANSLATION.DARK_MODE)}
         </Form.Label>
         <Form.Check
@@ -42,7 +38,7 @@ export default function NavbarDesktop({ cityName }: NavbarDesktopProps) {
         />
       </Container>
 
-      <LocationDropdown cityName={cityName} />
+      <LocationDropdown cityName={city.label} />
       <SettingsDropdown />
       <LanguageDropdown />
     </Stack>

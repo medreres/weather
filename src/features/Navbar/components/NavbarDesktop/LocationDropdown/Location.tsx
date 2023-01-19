@@ -12,12 +12,12 @@ interface LocationProps {
 }
 
 export default function Location({ cityName }: LocationProps) {
-  const { darkMode, city } = useContext(appCtx);
+  const { darkMode } = useContext(appCtx);
   return (
     <Dropdown align={{ sm: "end" }}>
       <DropdownToggle variant={darkMode ? "outline-success" : "outline-primary"}>
         <FontAwesomeIcon icon={faLocationDot} /> {cityName}
-        </DropdownToggle>
+      </DropdownToggle>
       <DropdownMenu
         style={{
           minWidth: "350px",

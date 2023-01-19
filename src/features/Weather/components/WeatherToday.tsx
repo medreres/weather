@@ -22,9 +22,9 @@ type WeatherTodayProps = {
 };
 
 export default function WeatherToday({
+  cityName,
   weathercode,
   temperature,
-  cityName,
   updatedAt,
   sunrise,
   sunset,
