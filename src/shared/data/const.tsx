@@ -1,1 +1,1 @@
-export const SMALL_SCREEN = 576;
+export const SMALL_SCREEN = 768;

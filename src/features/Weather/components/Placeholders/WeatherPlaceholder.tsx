@@ -1,64 +1,44 @@
+import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Card, Placeholder } from "react-bootstrap";
-import { getIcon, getDescription } from "../../utils/weatherCode";
-import { getDay, normalizeTemp } from "../../utils/formatting";
-import styles from "./WeatherPlaceholder.module.css";
+import { getIcon } from "../../utils/weatherCode";
+import styles from "../WeatherCard.module.css";
 
 export default function WeatherPlaceholder() {
   return (
-    <Card
-      style={{
-        width: "20vmin",
-        margin: "1vmin",
-        fontSize: "3vmin",
-        minWidth: "22vmin",
-        height: '244px'
-      }}
-    >
+    <Card className={styles["weather-card"]}>
       <Card.Body>
-        <Placeholder
-          as={Card.Title}
-          animation="glow"
-          style={{
-            height: "2.5vmin",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-          }}
-        >
-          <Placeholder xs={8} /> <Placeholder xs={2} />
-        </Placeholder>
+        <Card.Title
+          className={`${styles["weather-title"]} placeholder-glow`}
+          data-testid="date">
+          <Placeholder xs={6} /> <Placeholder xs={2} />
+        </Card.Title>
         <FontAwesomeIcon
-          className={`${styles.glowing} mb-4`}
-          size="2x"
-          icon={getIcon(0)}
+          className={styles.glowing}
+          size="3x"
+          icon={faSun}
         />
-        <Placeholder as={Card.Text} animation="glow">
-          <Placeholder
-            xs={4}
-            style={{
-              fontSize: "8vmin",
-              letterSpacing: "-5px",
-            }}
-          />{" "}
-          <Placeholder
-            xs={3}
-            className="mb-3"
-            style={{
-              fontSize: "4vmin",
-              letterSpacing: "-2px",
-            }}
-          />
+        <Card.Text>
+          <span
+            className={styles["weather-max-temp"] + " placeholder-glow me-3"}
+            data-testid="max-temp">
+            <Placeholder xs={3} />
+          </span>
+          <span
+            className={styles["weather-min-temp"] + " placeholder-glow"}
+            data-testid="min-temp">
+            <Placeholder xs={3} />
+          </span>
           <br />
-          <Placeholder
-            xs={10}
-            style={{
-              fontSize: "1.3vmin",
-              height: "1.5vmin",
-              display: "inline-block",
-            }}
-          />
-        </Placeholder>
+          <span
+            className={styles["weather-description"] + " placeholder-glow"}
+            data-testid="description">
+            <Placeholder style={{ width: "5vmin" }} /> <Placeholder style={{ width: "7vmin" }} />{" "}
+            <Placeholder style={{ width: "3vmin" }} /> <br />
+            <Placeholder style={{ width: "6vmin" }} /> <Placeholder style={{ width: "5vmin" }} />
+          </span>
+        </Card.Text>
       </Card.Body>
     </Card>
   );

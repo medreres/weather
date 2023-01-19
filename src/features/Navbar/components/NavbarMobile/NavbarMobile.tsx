@@ -34,6 +34,7 @@ export default function NavbarMobile({ cityName }: NavbarMobileProps) {
     <>
       <NavbarToggle
         data-testid="navbar-mobile-toggler"
+        className="d-sm-block"
         onClick={toggleMainCanvas}
       />
       <Offcanvas

@@ -7,7 +7,7 @@
     padding-top: 3vmin;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 768px) {
     .weather-container {
         grid-template-columns: repeat(7, 43vmin);
         overflow: auto;

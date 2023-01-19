@@ -23,7 +23,7 @@
 
 
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 768px) {
     .weather-description {
         min-height: 13vmin;
     }

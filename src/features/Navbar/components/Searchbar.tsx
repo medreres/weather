@@ -1,8 +1,4 @@
-import {
-  faLocation,
-  faSlash,
-  faWifi,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLocation, faSlash, faWifi } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
@@ -46,7 +42,7 @@ export default function Searchbar() {
             const result = results[0];
 
             const city = {
-              label: result.formatted_address,
+              label: result.formatted_address.slice(0, result.formatted_address.indexOf(",")),
               value: {
                 place_id: result.place_id,
                 lat,
