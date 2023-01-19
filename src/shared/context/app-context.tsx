@@ -32,13 +32,10 @@ type languageContextProviderProps = {
 };
 
 // export const useLanguage = useContext(languageCtx);
-
 export function LanguageContextProvider({ children }: languageContextProviderProps) {
   const { lang, setLang } = useLanguge();
   const { darkMode, setDarkMode } = useDarkmode();
-
   const toggleDarkMode = () => setDarkMode((prevState: any) => !prevState);
-
   const [city, setCity] = useLocalStorage<city>(
     LOCAL_STORAGE.WEATHER_APP_CITY,
     // by default chose lviv as default location
@@ -66,7 +63,7 @@ export function LanguageContextProvider({ children }: languageContextProviderPro
     },
     city,
     setCity: async (cityObj: city) => {
-      // if searched thrugh search bar, find the latitude and longitude
+      // if searched through search bar, find the latitude and longitude
       if (!cityObj.value.lng && !cityObj.value.lng)
         geocodeByPlaceId(city.value.place_id).then((res) => {
           const city = res[0];

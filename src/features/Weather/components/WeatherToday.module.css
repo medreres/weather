@@ -2,3 +2,44 @@
     text-align: center;
     min-height: 22vmin;
 }
+
+.weather-description {
+    min-height: 4vmin;
+}
+
+.description-left {
+    text-align: center;
+}
+
+.description-right {
+    text-align: center;
+}
+
+.weather-table {
+    width: 50vw !important;
+    margin: 0 auto;
+}
+
+
+
+
+@media screen and (max-width: 576px) {
+    .weather-description {
+        min-height: 13vmin;
+    }
+
+
+    /* .description-left {
+        text-align: start;
+    }
+
+    .description-right {
+        text-align: end;
+    } */
+
+
+.weather-table {
+    width: 90vw !important;
+    margin: 0 auto;
+}
+}

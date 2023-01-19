@@ -6,8 +6,10 @@ import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import { languageCtx } from "../../../shared/context/app-context";
 import useLanguage from "../../../shared/hooks/useTranslation";
-import { TRANSLATION, LANGUAGES } from "../../../shared/lang/translation";
+import { TRANSLATION } from "../../../shared/lang/translation";
 import Searchbar from "./Searchbar";
+import Units from "./UnitsDropdown";
+import LanguageDropdown from "./LanguageDropdown";
 
 interface NavbarDesktopProps {
   cityName: string;
@@ -16,6 +18,7 @@ interface NavbarDesktopProps {
 export default function NavbarDesktop({ cityName }: NavbarDesktopProps) {
   const translate = useLanguage();
   const { lang, setLanguage, darkMode, toggleDarkMode } = useContext(languageCtx);
+
   return (
     <Stack
       data-testid="navbar-desktop"
@@ -39,6 +42,7 @@ export default function NavbarDesktop({ cityName }: NavbarDesktopProps) {
         </Form.Label>
       </Container>
 
+      {/* Searchbar dropdown */}
       <Dropdown align={{ sm: "end" }}>
         <DropdownToggle variant={darkMode ? "outline-success" : "outline-primary"}>{cityName}</DropdownToggle>
         <DropdownMenu
@@ -49,30 +53,11 @@ export default function NavbarDesktop({ cityName }: NavbarDesktopProps) {
         </DropdownMenu>
       </Dropdown>
 
-      <Dropdown align={{ sm: "end" }}>
-        <Dropdown.Toggle
-          data-testid="language-dropdown"
-          variant={darkMode ? "outline-success" : "outline-primary"}>
-          <FontAwesomeIcon icon={faGlobe} /> <span data-testid="language-label">{translate(TRANSLATION.LANGUAGE)}</span>
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Header data-testid="interface-language">
-            {translate(TRANSLATION.INTERFACE_LANGUAGE)}
-          </Dropdown.Header>
-          <Dropdown.Divider />
-          {Object.keys(LANGUAGES).map((option) => (
-            <Dropdown.Item
-              data-testid={`toggle-${option}`}
-              active={option === lang}
-              key={option}
-              onClick={() => {
-                setLanguage(option);
-              }}>
-              {(LANGUAGES as any)[option]}
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
+      {/* units dropdown */}
+      <Units />
+
+      {/* language dropdown */}
+      <LanguageDropdown />
     </Stack>
   );
 }
