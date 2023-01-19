@@ -17,3 +17,10 @@ interface normalizeDateInterface {
 export const normalizeDate: normalizeDateInterface = (date: string, lang: string) => {
   return `${getDay(date, lang)}, ${new Date(date).getDate()}`;
 };
+
+export const getTime = (date: string, lang: string) => {
+  return new Date(date).toLocaleString(lang, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};

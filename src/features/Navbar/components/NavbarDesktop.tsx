@@ -23,15 +23,14 @@ export default function NavbarDesktop({ cityName }: NavbarDesktopProps) {
       className="aling-items-center"
       gap={2}>
       <Container
-        className="d-inline-flex justify-content-between
-               align-items-center
-             text-white"
+        className="d-inline-flex justify-content-between text-white"
         style={{
           minWidth: "40px",
         }}>
         <Form.Label className="d-flex align-items-center justify-content-center">
           <span data-testid="darkmode-label">{translate(TRANSLATION.DARK_MODE)}</span>
           <Form.Check
+            className="ms-2"
             type="switch"
             aria-label="Dark"
             checked={darkMode}

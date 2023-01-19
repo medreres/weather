@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { languageCtx } from "./shared/context/app-context";
-import Weather from "./features/Weather/Weather";
+import Weather from "./features/Weather/index";
 import Navbar from "./features/Navbar/Navbar";
 
 function App() {

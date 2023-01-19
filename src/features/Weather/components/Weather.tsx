@@ -1,56 +1,91 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext } from "react";
-import { Card } from "react-bootstrap";
-import { getIcon, getDescription } from "../utils/weatherCode";
+import React, { useContext, useEffect, useState } from "react";
 import { languageCtx } from "../../../shared/context/app-context";
-import useLanguage from "../../../shared/hooks/useTranslation";
-import { getDay, normalizeDate, normalizeTemp } from "../utils/formatting";
-import styles from "./Weather.module.css";
+import Fallback from "./Fallback/Fallback";
+import WeatherPlaceholder from "./Placeholders/WeatherPlaceholder";
+import WeatherTodayPlaceholder from "./Placeholders/WeatherTodayPlaceholder";
+import Weather from "./WeatherCard";
+import WeatherToday from "./WeatherToday";
+import WeatherWeekly from "./WeatherWeekly";
+import useWeather from "../hooks/useWeather";
+import { chosenDay } from "../interface/weather";
+import styles from './Weather.module.css'
 
-type WeatherProps = {
-  time: string;
-  weathercode: number;
-  temp_min: number;
-  temp_max: number;
-  active: boolean;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-};
+export default function index() {
+  const { weather, isLoading } = useWeather();
+  const [outOfDate, setOutOfDate] = useState(false);
+  const [chosenDay, setChosenDay] = useState<chosenDay>();
+  const { city } = useContext(languageCtx);
 
-export default function Weather({ time, weathercode, temp_min, temp_max, active, onClick }: WeatherProps) {
-  const translate = useLanguage();
-  const { lang } = useContext(languageCtx);
+  useEffect(() => {
+    if (isLoading) return;
+
+    // get index of current day, keep in mind that fetch request can be cached and be old
+
+    const now: any = new Date();
+    const cacheDate: any = new Date(weather!.current_weather.time);
+
+    const diffTime = Math.abs((now as any) - (cacheDate as any));
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    // console.log("diffDays", diffDays);
+
+    const id = diffDays;
+    // console.log(id)
+    // const id = 7;
+    const indexHour = id * 24 + new Date().getHours();
+
+    // handle if id > 6 and old request
+    // if current day out of range of cached response
+    if (id > 6) return setOutOfDate(true);
+
+    if (!chosenDay)
+      setChosenDay({
+        id,
+        temperature: weather!.hourly.temperature_2m[indexHour],
+        weathercode: weather!.daily.weathercode[id],
+        sunrise: weather!.daily.sunrise[id],
+        sunset: weather!.daily.sunset[id],
+        windspeed_10m: weather!.hourly.windspeed_10m[indexHour],
+        apparent_temperature: weather!.hourly.apparent_temperature[indexHour],
+        visibility: weather!.hourly.visibility[indexHour],
+        precipitation: weather!.daily.precipitation_sum[id]
+      });
+  }, [weather]);
+
+  if (outOfDate) {
+    return <Fallback />;
+  }
+
   return (
-    <Card
-      onClick={onClick}
-      className={`${active ? styles.active : ""} ${styles["weather-card"]}`}
-      data-testid="weather">
-      <Card.Body>
-        <Card.Title
-          className={styles["weather-title"]}
-          data-testid="date">
-          {normalizeDate(time, lang)}
-        </Card.Title>
-        <FontAwesomeIcon
-          size="3x"
-          icon={getIcon(weathercode)}
+    <>
+      {chosenDay && (
+        <WeatherToday
+          cityName={city.label}
+          temperature={chosenDay?.temperature}
+          weathercode={chosenDay?.weathercode}
+          sunrise={chosenDay?.sunrise}
+          sunset={chosenDay?.sunset}
+          updatedAt={weather!.current_weather.time}
+          windspeed_10m={chosenDay.windspeed_10m}
+          visibility={chosenDay.visibility}
+          apparent_temperature={chosenDay.apparent_temperature}
+          precipitation={chosenDay.precipitation}
         />
-        <Card.Text>
-          <span
-            className={styles["weather-min-temp"]}
-            data-testid="min-temp">
-            {normalizeTemp(temp_min)}˚
-          </span>
-          <span className={styles["weather-max-temp"]}
-            data-testid="max-temp">
-            {normalizeTemp(temp_max)}˚
-          </span>
-          <br />
-          <span className={styles["weather-description"]}
-            data-testid="description">
-            {translate(getDescription(weathercode))}
-          </span>
-        </Card.Text>
-      </Card.Body>
-    </Card>
+      )}
+
+      {isLoading && <WeatherTodayPlaceholder />}
+
+      <div className={styles['weather-container']}>
+        {weather && (
+          <WeatherWeekly
+            weather={weather}
+            onClick={setChosenDay}
+            chosenDay={chosenDay}
+          />
+        )}
+
+        {isLoading && Array.from({ length: 7 }, (_, i) => i).map((i) => <WeatherPlaceholder key={i} />)}
+      </div>
+    </>
   );
 }

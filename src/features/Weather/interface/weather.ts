@@ -3,9 +3,15 @@ export type daily = {
   temperature_2m_max: number[];
   time: string[];
   weathercode: number[];
+  sunrise: string[];
+  sunset: string[]; // date in string
+  precipitation_sum: number[]; // in mm
 };
 
 export type hourly = {
+  apparent_temperature: number[];
+  visibility: number[]; // in meters
+  windspeed_10m: number[];
   temperature_2m: number[];
   time: string[];
 };
@@ -36,4 +42,10 @@ export type chosenDay = {
   id: number;
   temperature: number;
   weathercode: number;
+  sunrise: string;
+  sunset: string;
+  windspeed_10m: number;
+  visibility: number;
+  apparent_temperature: number;
+  precipitation: number;
 };

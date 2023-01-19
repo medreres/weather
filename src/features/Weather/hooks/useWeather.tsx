@@ -14,7 +14,7 @@ export default function useWeather() {
     setIsLoading(true);
     fetch(
       `
-        https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=${Intl.DateTimeFormat()
+        https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m,apparent_temperature,visibility,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum&current_weather=true&timezone=${Intl.DateTimeFormat()
         .resolvedOptions()
         .timeZone.split("/")
         .join("%2F")}
@@ -22,6 +22,7 @@ export default function useWeather() {
     )
       .then((response) => response.json())
       .then((res) => {
+        console.log(res)
         setWeather({
           ...res,
           updatedAt: new Date(),

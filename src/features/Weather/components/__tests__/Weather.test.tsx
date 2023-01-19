@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { LanguageContextProvider } from "../../../../shared/context/app-context";
-import Weather from "../Weather";
+import Weather from "../WeatherCard";
 import en from "../../../../shared/lang/english.json";
 import uk from "../../../../shared/lang/ukrainian.json";
 import Navbar from "../../../Navbar/components/Navbar";
