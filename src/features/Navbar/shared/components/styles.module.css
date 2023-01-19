@@ -1,0 +1,4 @@
+.active-off:active {
+    background-color: var(--bs-dropdown-link-hover-bg) !important;
+    color: inherit !important;
+}

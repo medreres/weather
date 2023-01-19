@@ -3,13 +3,13 @@ import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useTransition } from "react";
 import { Dropdown } from "react-bootstrap";
-import { languageCtx } from "../../../../shared/context/app-context";
-import useLanguage from "../../../../shared/hooks/useTranslation";
-import { LANGUAGES, TRANSLATION } from "../../../../shared/lang/translation";
+import { appCtx } from "../../../../../shared/context/app-context";
+import useLanguage from "../../../../../shared/hooks/useTranslation";
+import { LANGUAGES, TRANSLATION } from "../../../../../shared/lang/translation";
 
 export default function LanguageDropdown() {
   const translate = useLanguage();
-  const { darkMode, lang, setLanguage } = useContext(languageCtx);
+  const { darkMode, lang, setLanguage } = useContext(appCtx);
   return (
     <Dropdown align={{ sm: "end" }}>
       <Dropdown.Toggle

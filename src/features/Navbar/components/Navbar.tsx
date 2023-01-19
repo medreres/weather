@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Navbar as NavbarBootstrap } from "react-bootstrap";
-import { languageCtx } from "../../../shared/context/app-context";
+import { appCtx } from "../../../shared/context/app-context";
 import useLanguage from "../../../shared/hooks/useTranslation";
 import { TRANSLATION } from "../../../shared/lang/translation";
-import NavbarMobile from "./NavbarMobile";
-import NavbarDesktop from "./NavbarDesktop";
+import NavbarMobile from "./NavbarMobile/NavbarMobile";
+import NavbarDesktop from "./NavbarDesktop/NavbarDesktop";
 import { SMALL_SCREEN } from "../../../shared/data/const";
 interface NavbarProps {
   cityName: string;
@@ -12,7 +12,7 @@ interface NavbarProps {
 
 export default function Navbar({ cityName }: NavbarProps) {
   const translate = useLanguage();
-  const { darkMode } = useContext(languageCtx);
+  const { darkMode } = useContext(appCtx);
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 

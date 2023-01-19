@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { LanguageContextProvider } from "../../../../shared/context/app-context";
 import en from "../../../../shared/lang/english.json";
 import uk from "../../../../shared/lang/ukrainian.json";
-import NavbarDesktop from "../NavbarDesktop";
+import NavbarDesktop from "../NavbarDesktop/NavbarDesktop";
 
 const MockNavbar = () => {
   const cityName = "Sambir";

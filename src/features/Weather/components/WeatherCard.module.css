@@ -25,12 +25,12 @@
     overflow: hidden;
 }
 
-.weather-min-temp {
+.weather-max-temp {
     font-size: 8vmin;
-    letter-spacing: -5px;
+    letter-spacing: -4px;
 }
 
-.weather-max-temp {
+.weather-min-temp {
     font-size: 4vmin;
     letter-spacing: -2px;
 }
@@ -51,14 +51,14 @@
     }
 
 
-    .weather-min-temp {
+    .weather-max-temp {
         font-size: 8vmin;
-        letter-spacing: -5px;
+        letter-spacing: -2px;
     }
 
-    .weather-max-temp {
+    .weather-min-temp {
         font-size: 4vmin;
-        letter-spacing: -2px;
+        letter-spacing: 0px;
     }
 
     .weather-description {

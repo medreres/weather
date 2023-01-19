@@ -6,9 +6,27 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import { city } from "../../features/Weather/interface/weather";
 import { LOCAL_STORAGE } from "../lang/translation";
 
-export const languageCtx = React.createContext({
+const defaultLocalStorageCity = {
+  label: "Lviv",
+  value: {
+    place_id: "ChIJV5oQCXzdOkcR4ngjARfFI0I",
+    lat: 49.84,
+    lng: 24.02,
+  },
+};
+
+export const appCtx = React.createContext({
   lang: "en", // default values
   darkMode: false,
+  tmpUnit: "c",
+  setTmpUnit: (unit: string) => {},
+
+  precipUnit: "mm",
+  setPrecipUnit: (unit: string) => {},
+
+  windspeedUnit: "kmh",
+  setWindspeedUnit: (unit: string) => {},
+
   toggleDarkMode: () => {},
   setLanguage: (language: string) => {},
   setLatitude: (lat: number) => {},
@@ -31,22 +49,18 @@ type languageContextProviderProps = {
   children: ReactNode;
 };
 
-// export const useLanguage = useContext(languageCtx);
+// export const useLanguage = useContext(appCtx);
 export function LanguageContextProvider({ children }: languageContextProviderProps) {
   const { lang, setLang } = useLanguge();
   const { darkMode, setDarkMode } = useDarkmode();
   const toggleDarkMode = () => setDarkMode((prevState: any) => !prevState);
+  const [tmpUnit, setTmpUnit] = useLocalStorage(LOCAL_STORAGE.WEATHER_APP_UNITS_TEMPERATURE, "c");
+  const [precipUnit, setPrecipUnit] = useLocalStorage(LOCAL_STORAGE.WEATHER_APP_UNITS_PRECIPITATION, "mm");
+  const [windspeedUnit, setWindspeedUnit] = useLocalStorage(LOCAL_STORAGE.WEATHER_APP_UNITS_WIND_SPEED, "kmh");
   const [city, setCity] = useLocalStorage<city>(
     LOCAL_STORAGE.WEATHER_APP_CITY,
     // by default chose lviv as default location
-    {
-      label: "Lviv",
-      value: {
-        place_id: "ChIJV5oQCXzdOkcR4ngjARfFI0I",
-        lat: 49.84,
-        lng: 24.02,
-      },
-    }
+    defaultLocalStorageCity
   );
 
   // set lang attribute
@@ -61,6 +75,12 @@ export function LanguageContextProvider({ children }: languageContextProviderPro
     setLanguage: (lang: string) => {
       setLang(lang);
     },
+    tmpUnit,
+    setTmpUnit,
+    precipUnit,
+    setPrecipUnit,
+    windspeedUnit,
+    setWindspeedUnit,
     city,
     setCity: async (cityObj: city) => {
       // if searched through search bar, find the latitude and longitude
@@ -83,5 +103,5 @@ export function LanguageContextProvider({ children }: languageContextProviderPro
     },
   };
 
-  return <languageCtx.Provider value={value as any}>{children}</languageCtx.Provider>;
+  return <appCtx.Provider value={value as any}>{children}</appCtx.Provider>;
 }

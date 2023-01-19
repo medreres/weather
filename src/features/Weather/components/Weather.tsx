@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { languageCtx } from "../../../shared/context/app-context";
+import { appCtx } from "../../../shared/context/app-context";
 import Fallback from "./Fallback/Fallback";
 import WeatherPlaceholder from "./Placeholders/WeatherPlaceholder";
 import WeatherTodayPlaceholder from "./Placeholders/WeatherTodayPlaceholder";
@@ -8,13 +8,13 @@ import WeatherToday from "./WeatherToday";
 import WeatherWeekly from "./WeatherWeekly";
 import useWeather from "../hooks/useWeather";
 import { chosenDay } from "../interface/weather";
-import styles from './Weather.module.css'
+import styles from "./Weather.module.css";
 
 export default function index() {
   const { weather, isLoading } = useWeather();
   const [outOfDate, setOutOfDate] = useState(false);
   const [chosenDay, setChosenDay] = useState<chosenDay>();
-  const { city } = useContext(languageCtx);
+  const { city, tmpUnit, precipUnit, windspeedUnit } = useContext(appCtx);
 
   useEffect(() => {
     if (isLoading) return;
@@ -38,19 +38,18 @@ export default function index() {
     // if current day out of range of cached response
     if (id > 6) return setOutOfDate(true);
 
-    if (!chosenDay)
-      setChosenDay({
-        id,
-        temperature: weather!.hourly.temperature_2m[indexHour],
-        weathercode: weather!.daily.weathercode[id],
-        sunrise: weather!.daily.sunrise[id],
-        sunset: weather!.daily.sunset[id],
-        windspeed_10m: weather!.hourly.windspeed_10m[indexHour],
-        apparent_temperature: weather!.hourly.apparent_temperature[indexHour],
-        visibility: weather!.hourly.visibility[indexHour],
-        precipitation: weather!.daily.precipitation_sum[id]
-      });
-  }, [weather]);
+    setChosenDay({
+      id,
+      temperature: weather!.hourly.temperature_2m[indexHour],
+      weathercode: weather!.daily.weathercode[id],
+      sunrise: weather!.daily.sunrise[id],
+      sunset: weather!.daily.sunset[id],
+      windspeed_10m: weather!.hourly.windspeed_10m[indexHour],
+      apparent_temperature: weather!.hourly.apparent_temperature[indexHour],
+      visibility: weather!.hourly.visibility[indexHour],
+      precipitation: weather!.daily.precipitation_sum[id],
+    });
+  }, [weather, tmpUnit, precipUnit, windspeedUnit, isLoading]);
 
   if (outOfDate) {
     return <Fallback />;
@@ -58,7 +57,7 @@ export default function index() {
 
   return (
     <>
-      {chosenDay && (
+      {isLoading == false && chosenDay && (
         <WeatherToday
           cityName={city.label}
           temperature={chosenDay?.temperature}
@@ -75,8 +74,8 @@ export default function index() {
 
       {isLoading && <WeatherTodayPlaceholder />}
 
-      <div className={styles['weather-container']}>
-        {weather && (
+      <div className={styles["weather-container"]}>
+        {isLoading === false && weather && (
           <WeatherWeekly
             weather={weather}
             onClick={setChosenDay}

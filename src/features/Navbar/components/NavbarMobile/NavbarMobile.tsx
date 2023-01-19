@@ -1,13 +1,14 @@
-import { faLocation, faLanguage } from "@fortawesome/free-solid-svg-icons";
+import { faLocation, faLanguage, faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useState } from "react";
 import { Offcanvas, ListGroup, ListGroupItem, Form } from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
-import { languageCtx } from "../../../shared/context/app-context";
-import useLanguage from "../../../shared/hooks/useTranslation";
-import { TRANSLATION, LANGUAGES } from "../../../shared/lang/translation";
-import OffcanvasCustom from "./Offcanvas";
-import Searchbar from "./Searchbar";
+import { appCtx } from "../../../../shared/context/app-context";
+import useLanguage from "../../../../shared/hooks/useTranslation";
+import { TRANSLATION } from "../../../../shared/lang/translation";
+import LanguageOffcanvas from "./LanguageOffcanvas";
+import LocationOffcanvas from "./LocationOffcanvas";
+import SettingsOffcanvas from "./SettingsOffcanvas";
 
 interface NavbarMobileProps {
   cityName: string;
@@ -15,7 +16,7 @@ interface NavbarMobileProps {
 
 export default function NavbarMobile({ cityName }: NavbarMobileProps) {
   const translate = useLanguage();
-  const { lang, setLanguage, darkMode, toggleDarkMode } = useContext(languageCtx);
+  const { darkMode, toggleDarkMode } = useContext(appCtx);
 
   const [showMainCanvas, setShowMainCanvas] = useState(false);
   const toggleMainCanvas = () => setShowMainCanvas((prevState) => !prevState);
@@ -25,6 +26,9 @@ export default function NavbarMobile({ cityName }: NavbarMobileProps) {
 
   const [showLanguageCanvas, setShowLanguageCanvas] = useState(false);
   const toggleLanguageCanvas = () => setShowLanguageCanvas((prevState) => !prevState);
+
+  const [showSettingsCanvas, setshowSettingsCanvas] = useState(false);
+  const toggleSettingsCanvas = () => setshowSettingsCanvas((prevState) => !prevState);
 
   return (
     <>
@@ -56,47 +60,43 @@ export default function NavbarMobile({ cityName }: NavbarMobileProps) {
               <span data-testid="language-group-item">{translate(TRANSLATION.LANGUAGE)}</span>{" "}
               <FontAwesomeIcon icon={faLanguage} />
             </ListGroupItem>
-            <ListGroupItem>
-              <Form.Label className="d-flex justify-content-between align-items-center">
-                <span data-testid="darkmode-group-item">{translate(TRANSLATION.DARK_MODE)}</span>
-                <Form.Check
-                  type="switch"
-                  aria-label="Dark"
-                  checked={darkMode}
-                  onChange={toggleDarkMode}
-                />
+            <ListGroupItem
+              className="d-flex justify-content-between align-items-center"
+              action
+              onClick={toggleSettingsCanvas}>
+              <span data-testid="settings-group-item">{translate(TRANSLATION.SETTINGS)}</span>{" "}
+              <FontAwesomeIcon icon={faGear} />
+            </ListGroupItem>
+            <ListGroupItem className="d-flex justify-content-between align-items-center">
+              <Form.Label
+                htmlFor="darkmode-toggle"
+                data-testid="darkmode-group-item"
+                className="d-flex justify-content-between align-items-center mb-0">
+                {translate(TRANSLATION.DARK_MODE)}
               </Form.Label>
+              <Form.Check
+                id="darkmode-toggle"
+                type="switch"
+                aria-label="Dark"
+                checked={darkMode}
+                onChange={toggleDarkMode}
+              />
             </ListGroupItem>
           </ListGroup>
 
-          {/* location canvas */}
-          <OffcanvasCustom
+          <LocationOffcanvas
             show={showLocationCanvas}
             onHide={toggleLocationCanvas}
-            title={cityName}>
-            <Searchbar />
-          </OffcanvasCustom>
-
-          {/* language canvas */}
-          <OffcanvasCustom
-            labelId="offcanvas-language-title"
+            cityName={cityName}
+          />
+          <LanguageOffcanvas
             show={showLanguageCanvas}
             onHide={toggleLanguageCanvas}
-            title={translate(TRANSLATION.LANGUAGE)}>
-            <ListGroup>
-              {Object.keys(LANGUAGES).map((option) => (
-                <ListGroupItem
-                  data-testid={option}
-                  active={option === lang}
-                  key={option}
-                  onClick={() => {
-                    setLanguage(option);
-                  }}>
-                  {(LANGUAGES as any)[option]}
-                </ListGroupItem>
-              ))}
-            </ListGroup>
-          </OffcanvasCustom>
+          />
+          <SettingsOffcanvas
+            show={showSettingsCanvas}
+            onHide={toggleSettingsCanvas}
+          />
         </Offcanvas.Body>
       </Offcanvas>
     </>

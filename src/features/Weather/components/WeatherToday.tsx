@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
 import { getIcon, getDescription } from "../utils/weatherCode";
-import { languageCtx } from "../../../shared/context/app-context";
+import { appCtx } from "../../../shared/context/app-context";
 import useLanguage from "../../../shared/hooks/useTranslation";
 import { TRANSLATION } from "../../../shared/lang/translation";
 import { getTime, normalizeTemp } from "../utils/formatting";
@@ -34,9 +34,7 @@ export default function WeatherToday({
   precipitation,
 }: WeatherTodayProps) {
   const translate = useLanguage();
-  const { lang, darkMode } = useContext(languageCtx);
-
-  // TODO add precipitation, sunrise, sunset, windspeed, apparent temperature
+  const { lang, darkMode, tmpUnit, precipUnit, windspeedUnit } = useContext(appCtx);
 
   return (
     <div className={styles["weather-today"]}>
@@ -45,57 +43,44 @@ export default function WeatherToday({
         style={{
           fontSize: "13vmin",
         }}>
-        <FontAwesomeIcon icon={getIcon(weathercode)} /> {normalizeTemp(temperature)}˚C
+        <FontAwesomeIcon icon={getIcon(weathercode)} /> {normalizeTemp(temperature)} ˚{tmpUnit.toUpperCase()}
       </h2>
       <h5 className={styles["weather-description"]}>{translate(getDescription(weathercode))}</h5>
 
       <Table
-      className={styles['weather-table']}
+        className={styles["weather-table"]}
         striped
         borderless
         variant={darkMode ? "dark" : ""}
         size="sm">
         <tbody>
           <tr>
-            <td className={styles['description-right']}>Feels like: {apparent_temperature}</td>
-            <td className={styles['description-left']}>Windspeed: {windspeed_10m}</td>
+            <td className={styles["description-right"]}>
+              {translate(TRANSLATION.APPARENT_TEMPERATURE)}: {apparent_temperature} ˚{tmpUnit.toUpperCase()}
+            </td>
+            <td className={styles["description-left"]}>
+              {translate(TRANSLATION.WIND_SPEED)}: {windspeed_10m}{" "}
+              {windspeedUnit[0].toUpperCase() + windspeedUnit.slice(1)}
+            </td>
           </tr>
           <tr>
-            <td>Sunrise: {getTime(sunrise, lang)}</td>
-            <td>Sunset: {getTime(sunset, lang)}</td>
+            <td>
+              {translate(TRANSLATION.SUNRISE)}: {getTime(sunrise, lang)}
+            </td>
+            <td>
+              {translate(TRANSLATION.SUNSET)}: {getTime(sunset, lang)}
+            </td>
           </tr>
           <tr>
-            <td>Visibility: {visibility}m</td>
-            <td>Precipitation: {precipitation}mm</td>
+            <td>
+              {translate(TRANSLATION.VISIBILITY)}: {visibility}m
+            </td>
+            <td>
+              {translate(TRANSLATION.PRECIPITATION)}: {precipitation} {precipUnit}
+            </td>
           </tr>
         </tbody>
       </Table>
-      {/* <Container className="ps-4 pe-4 pt-3">
-        <Row className="justify-content-around">
-          <Col>
-            <p className={styles["description-left"]}>Feels like: {apparent_temperature}</p>
-          </Col>
-          <Col>
-            <p className={styles["description-right"]}>Windspeed: {windspeed_10m}</p>
-          </Col>
-        </Row>
-        <Row className="justify-content-around">
-          <Col>
-            <p className={styles["description-left"]}>Sunrise: {getTime(sunrise, lang)}</p>
-          </Col>
-          <Col>
-            <p className={styles["description-right"]}>Sunset: {getTime(sunset, lang)}</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <p className={styles["description-left"]}>Visibility: {visibility}m</p>
-          </Col>
-          <Col>
-            <p className={styles["description-right"]}>Precipitation: {precipitation}mm</p>
-          </Col>
-        </Row>
-      </Container> */}
 
       <p className="text-secondary">
         {translate(TRANSLATION.UPDATEAD_AT)}:{" "}

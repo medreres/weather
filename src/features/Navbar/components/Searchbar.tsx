@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import GooglePlacesAutocomplete, { geocodeByLatLng } from "react-google-places-autocomplete";
-import { languageCtx } from "../../../shared/context/app-context";
+import { appCtx } from "../../../shared/context/app-context";
 import useLanguage from "../../../shared/hooks/useTranslation";
 import { TRANSLATION } from "../../../shared/lang/translation";
 
@@ -15,7 +15,7 @@ export default function Searchbar() {
   const [isLoading, setIsLoading] = useState(false);
   const translate = useLanguage();
   const [isOnline, setIsOnline] = useState(navigator.onLine);
-  const { darkMode } = useContext(languageCtx);
+  const { darkMode } = useContext(appCtx);
 
   useEffect(() => {
     // toggle state
@@ -68,7 +68,7 @@ export default function Searchbar() {
     );
   }
 
-  const { city, setCity, lang } = useContext(languageCtx);
+  const { city, setCity, lang } = useContext(appCtx);
   return (
     <Container fluid>
       <Row>

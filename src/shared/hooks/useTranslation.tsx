@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import uk from "../lang/ukrainian.json";
 import en from "../lang/english.json";
-import { languageCtx } from "../context/app-context";
+import { appCtx } from "../context/app-context";
 
-export default function useLanguage() {
-  const { lang } = useContext(languageCtx);
+export default function useTranslation() {
+  const { lang } = useContext(appCtx);
   function getLanguage() {
     switch (lang) {
       case "uk":
