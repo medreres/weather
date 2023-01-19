@@ -44,8 +44,7 @@ This is a study project, created to polish off the React skills as well as to le
 At starting page you are presented with a default weather prediction for my favorite city - Lviv.
 
 ## Unit of measurement
-
-![settings](./readme/settings.png)
+<img src="./readme/settings.png" alt="seetings mobile view" width="400" height='300'/> </br>
 [Open Meteo](open-meteo.com) allows you to chose units for the weather prediction
 
 ## Mobile Response
