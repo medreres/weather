@@ -1,7 +1,7 @@
 # Weather App
 
-This is a React.ts application that provides all the basic functionality you expect from a weather app
-[Demo](https://weather-f4087.web.app/)
+This is a React.ts application that provides all the basic functionality you expect from a weather app </br>
+[Demo](https://weather-f4087.web.app/) 
 ![Home page](./readme/desktop.png)
 
 # Installation
