@@ -69,3 +69,6 @@ Those sources gave a gread deal of inspiration while developing
 - [Google Places API](https://developers.google.com/maps/documentation/places/web-service/overview)
 - [Open Meteo](https://open-meteo.com)
 - [Font Awesome](https://fontawesome.com)
+
+# Additional 
+- UML use cases diagram - [click](https://firebasestorage.googleapis.com/v0/b/auth-production-a2c5b.appspot.com/o/files%2F8vQ5j7930jXuJNhoBmFhsDVF6O83%2FBlank%20diagram.pdf?alt=media&token=9501f17c-e390-4221-9f39-030d9a6da9e8)
